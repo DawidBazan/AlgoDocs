@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileCheck, Check, Download, ArrowRight } from 'lucide-react';
+import { FileCheck, Check, Download, ArrowRight, Wallet } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DocumentDropzone from '../components/DocumentDropzone';
 import QRCode from 'qrcode.react';
@@ -22,7 +22,7 @@ const CertificationPage: React.FC = () => {
   const [certificateId, setCertificateId] = useState<string>('');
   const [processing, setProcessing] = useState<boolean>(false);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
-  const { connected, certifyDocument } = useAlgorand();
+  const { connected, connect, certifyDocument } = useAlgorand();
 
   const handleFileDrop = async (droppedFile: File) => {
     setFile(droppedFile);
@@ -106,10 +106,11 @@ const CertificationPage: React.FC = () => {
                 <p className="text-yellow-700 text-sm mb-4">
                   You need to connect your Algorand wallet to certify documents.
                 </p>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {}}
-                >
+                <button 
+                  className="btn btn-primary" 
+                  onClick={connect}
+                > 
+                  <Wallet size={20} />
                   Connect Wallet
                 </button>
               </div>
@@ -161,9 +162,9 @@ const CertificationPage: React.FC = () => {
               <button
                 onClick={handleCertify}
                 disabled={processing || !connected}
-                className="btn btn-primary w-full"
+                className={`btn w-full ${connected ? 'btn-primary' : 'btn-disabled bg-gray-200'}`}
               >
-                {processing ? 'Processing...' : 'Certify Document'}
+                {processing ? 'Processing...' : connected ? 'Certify Document' : 'Connect Wallet Required'}
               </button>
             </div>
           </div>
