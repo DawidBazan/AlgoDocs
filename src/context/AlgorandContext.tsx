@@ -3,7 +3,7 @@ import algosdk from 'algosdk';
 import { PeraWalletConnect } from '@perawallet/connect';
 
 interface AlgorandContextType {
-  connect: () => Promise<void>;
+  connect: (type: 'pera' | 'walletconnect') => Promise<void>;
   disconnect: () => void;
   connected: boolean;
   address: string | null;
@@ -58,9 +58,16 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     };
   }, [peraWallet]);
 
-  const connect = async () => {
+  const connect = async (type: 'pera' | 'walletconnect') => {
     try {
-      const accounts = await peraWallet.connect();
+      let accounts;
+      if (type === 'pera') {
+        accounts = await peraWallet.connect();
+      } else {
+        // TODO: Implement WalletConnect
+        throw new Error('WalletConnect support coming soon');
+      }
+
       if (!accounts || accounts.length === 0) {
         throw new Error('No accounts selected');
       }
