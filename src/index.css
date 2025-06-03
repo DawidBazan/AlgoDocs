@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Roboto', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+body {
+  @apply bg-gray-50 text-navy-900;
+}
+
+.drop-zone {
+  @apply border-2 border-dashed rounded-lg p-8 transition-all duration-200 ease-in-out flex flex-col items-center justify-center text-center;
+}
+
+.drop-zone.active {
+  @apply border-teal-500 bg-teal-50;
+}
+
+.drop-zone.uploaded {
+  @apply border-teal-500 bg-teal-50/50;
+}
+
+.btn {
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-200 inline-flex items-center justify-center gap-2;
+}
+
+.btn-primary {
+  @apply bg-navy-700 text-white hover:bg-navy-800 focus:ring-2 focus:ring-navy-500 focus:ring-offset-2;
+}
+
+.btn-secondary {
+  @apply bg-teal-500 text-white hover:bg-teal-600 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2;
+}
+
+.btn-outline {
+  @apply border border-navy-700 text-navy-700 hover:bg-navy-50 focus:ring-2 focus:ring-navy-500 focus:ring-offset-2;
+}
+
+.progress-step {
+  @apply flex items-center;
+}
+
+.progress-step-number {
+  @apply w-8 h-8 rounded-full flex items-center justify-center font-medium mr-3;
+}
+
+.progress-step-active .progress-step-number {
+  @apply bg-navy-700 text-white;
+}
+
+.progress-step-completed .progress-step-number {
+  @apply bg-teal-500 text-white;
+}
+
+.progress-step-pending .progress-step-number {
+  @apply bg-gray-200 text-gray-500;
+}
+
+.progress-line {
+  @apply w-px h-12 bg-gray-200 mx-auto my-1;
+}
+
+.progress-line-active {
+  @apply bg-navy-700;
+}
+
+.progress-line-completed {
+  @apply bg-teal-500;
+}
