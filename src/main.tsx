@@ -3,14 +3,14 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
-import { AlgorandProvider } from './context/AlgorandContext';
+import { WalletProvider } from './context/WalletContext';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <AlgorandProvider>
+      <WalletProvider>
         <App />
-      </AlgorandProvider>
+      </WalletProvider>
     </BrowserRouter>
   </StrictMode>
 );

@@ -1,13 +1,16 @@
 import React from 'react';
 import { Wallet } from 'lucide-react';
-import { useAlgorand } from '../context/AlgorandContext';
+import { useWeb3Modal } from '@web3modal/wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 interface ConnectWalletButtonProps {
   fullWidth?: boolean;
 }
 
 const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({ fullWidth = false }) => {
-  const { connect, disconnect, connected, address } = useAlgorand();
+  const { open } = useWeb3Modal();
+  const { address, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
 
   const formatAddress = (addr: string | null) => {
     if (!addr) return '';
@@ -16,13 +19,13 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({ fullWidth = f
 
   return (
     <button
-      onClick={connected ? disconnect : connect}
+      onClick={() => isConnected ? disconnect() : open()}
       className={`btn ${
-        connected ? 'btn-outline' : 'btn-primary'
+        isConnected ? 'btn-outline' : 'btn-primary'
       } ${fullWidth ? 'w-full' : ''}`}
     >
       <Wallet size={20} />
-      {connected ? formatAddress(address) : 'Connect Wallet'}
+      {isConnected ? formatAddress(address as string) : 'Connect Wallet'}
     </button>
   );
 };
