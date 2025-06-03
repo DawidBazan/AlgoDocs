@@ -65,13 +65,19 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       setConnected(true);
       localStorage.setItem('chainStampAddress', address);
     } catch (error) {
-      let errorMessage: string;
+      let errorMessage = 'Unknown error occurred while connecting to wallet. Please try again.';
       
-      // Check specifically for blocked pop-up errors
-      if (error === undefined || (typeof error === 'string' && error.includes('blocked'))) {
+      // Enhanced check for blocked pop-up errors
+      const isBlockedError = 
+        error === undefined || 
+        (typeof error === 'string' && error.includes('blocked')) ||
+        (error instanceof Error && error.message.includes('blocked')) ||
+        (error && typeof error === 'object' && 'message' in error && String(error.message).includes('blocked'));
+
+      if (isBlockedError) {
         errorMessage = 'Wallet connection failed: A pop-up window was blocked. Please allow pop-ups for this site and try again.';
       } else {
-        errorMessage = error instanceof Error 
+        errorMessage = error instanceof Error
           ? error.message 
           : 'Unknown error occurred while connecting to wallet. Please try again.';
       }
