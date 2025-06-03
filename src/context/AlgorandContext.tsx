@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import algosdk from 'algosdk';
-import MyAlgoConnect from '@randlabs/myalgo-connect';
+import { PeraWalletConnect } from '@perawallet/connect';
 
 interface AlgorandContextType {
   connect: () => Promise<void>;
@@ -8,7 +8,7 @@ interface AlgorandContextType {
   connected: boolean;
   address: string | null;
   algodClient: algosdk.Algodv2 | null;
-  myAlgoWallet: MyAlgoConnect | null;
+  peraWallet: PeraWalletConnect | null;
   certifyDocument: (documentHash: string, documentName: string) => Promise<string>;
   verifyDocument: (txId: string) => Promise<{ verified: boolean; data: any }>;
 }
@@ -24,73 +24,54 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [connected, setConnected] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
   const [algodClient, setAlgodClient] = useState<algosdk.Algodv2 | null>(null);
-  const [myAlgoWallet, setMyAlgoWallet] = useState<MyAlgoConnect | null>(null);
+  const [peraWallet] = useState<PeraWalletConnect>(() => new PeraWalletConnect());
 
   useEffect(() => {
     // Initialize Algorand client
     const client = new algosdk.Algodv2(algodToken, algodServer, algodPort);
     setAlgodClient(client);
 
-    // Initialize MyAlgo wallet
-    const wallet = new MyAlgoConnect();
-    setMyAlgoWallet(wallet);
+    // Reconnect session
+    peraWallet
+      .reconnectSession()
+      .then((accounts) => {
+        if (accounts.length > 0) {
+          setAddress(accounts[0]);
+          setConnected(true);
+        }
+      })
+      .catch((error) => {
+        console.log('Reconnect failed:', error);
+      });
 
-    // Check if user was previously connected
-    const savedAddress = localStorage.getItem('chainStampAddress');
-    if (savedAddress) {
-      setAddress(savedAddress);
-      setConnected(true);
-    }
-  }, []);
+    // Cleanup
+    return () => {
+      peraWallet.disconnect();
+    };
+  }, [peraWallet]);
 
   const connect = async () => {
-    if (!myAlgoWallet) return;
-
     try {
-      // Check if running in a secure context (HTTPS or localhost)
-      if (!window.isSecureContext) {
-        throw new Error('MyAlgo wallet requires a secure context (HTTPS or localhost)');
-      }
-
-      const accounts = await myAlgoWallet.connect();
-      
+      const accounts = await peraWallet.connect();
       if (!accounts || accounts.length === 0) {
         throw new Error('No accounts selected');
       }
 
-      const address = accounts[0].address;
+      const address = accounts[0];
       console.log('Successfully connected to wallet:', address);
 
       setAddress(address);
       setConnected(true);
-      localStorage.setItem('chainStampAddress', address);
     } catch (error) {
-      let errorMessage = 'Unknown error occurred while connecting to wallet. Please try again.';
-      
-      // Enhanced check for blocked pop-up errors
-      const isBlockedError = 
-        error === undefined || 
-        (typeof error === 'string' && error.includes('blocked')) ||
-        (error instanceof Error && error.message.includes('blocked')) ||
-        (error && typeof error === 'object' && 'message' in error && String(error.message).includes('blocked'));
-
-      if (isBlockedError) {
-        errorMessage = 'Wallet connection failed: A pop-up window was blocked. Please allow pop-ups for this site and try again.';
-      } else {
-        errorMessage = error instanceof Error
-          ? error.message 
-          : 'Unknown error occurred while connecting to wallet. Please try again.';
-      }
-      
-      console.error('Wallet connection error:', errorMessage);
-      throw new Error(`Failed to connect wallet: ${errorMessage}`);
+      console.error('Wallet connection error:', error);
+      throw error;
     }
   };
 
   const disconnect = () => {
+    peraWallet.disconnect();
     setAddress(null);
     setConnected(false);
-    localStorage.removeItem('chainStampAddress');
   };
 
   const certifyDocument = async (documentHash: string, documentName: string): Promise<string> => {
@@ -121,11 +102,11 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
         suggestedParams,
       });
       
-      // Sign transaction
-      const signedTxn = await myAlgoWallet!.signTransaction(txn.toByte());
+      // Sign transaction with Pera Wallet
+      const signedTxn = await peraWallet.signTransaction([[{ txn, signers: [address] }]]);
       
       // Submit transaction
-      const response = await algodClient.sendRawTransaction(signedTxn.blob).do();
+      const response = await algodClient.sendRawTransaction(signedTxn).do();
       
       // Wait for confirmation
       await algosdk.waitForConfirmation(algodClient, response.txId, 4);
@@ -177,7 +158,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     connected,
     address,
     algodClient,
-    myAlgoWallet,
+    peraWallet,
     certifyDocument,
     verifyDocument,
   };
@@ -187,12 +168,4 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       {children}
     </AlgorandContext.Provider>
   );
-};
-
-export const useAlgorand = (): AlgorandContextType => {
-  const context = useContext(AlgorandContext);
-  if (context === undefined) {
-    throw new Error('useAlgorand must be used within an AlgorandProvider');
-  }
-  return context;
 };
