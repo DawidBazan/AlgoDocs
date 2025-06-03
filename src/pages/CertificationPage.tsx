@@ -162,10 +162,19 @@ const CertificationPage: React.FC = () => {
               <button
                 onClick={handleCertify}
                 disabled={processing || !connected}
-                className={`btn w-full ${connected ? 'btn-primary' : 'btn-disabled bg-gray-200'}`}
+                className="btn btn-primary w-full"
               >
-                {processing ? 'Processing...' : connected ? 'Certify Document' : 'Connect Wallet Required'}
+                {processing ? 'Processing...' : 'Certify Document'}
               </button>
+              {!connected && (
+                <button
+                  onClick={connect}
+                  className="btn btn-outline w-full mt-4"
+                >
+                  <Wallet size={20} />
+                  Connect Wallet to Certify
+                </button>
+              )}
             </div>
           </div>
         );
