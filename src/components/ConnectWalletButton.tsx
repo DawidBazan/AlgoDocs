@@ -95,3 +95,5 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({ fullWidth = f
     </>
   );
 };
+
+export default ConnectWalletButton
