@@ -13,6 +13,14 @@ interface AlgorandContextType {
   verifyDocument: (txId: string) => Promise<{ verified: boolean; data: any }>;
 }
 
+export const useAlgorand = () => {
+  const context = useContext(AlgorandContext);
+  if (context === undefined) {
+    throw new Error('useAlgorand must be used within an AlgorandProvider');
+  }
+  return context;
+};
+
 const AlgorandContext = createContext<AlgorandContextType | undefined>(undefined);
 
 // Using Algorand TestNet for development
