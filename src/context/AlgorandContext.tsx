@@ -2,20 +2,19 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import algosdk from 'algosdk';
 import { PeraWalletConnect } from '@perawallet/connect';
 
-const AlgorandContext = createContext<AlgorandContextType | undefined>(undefined);
-
 interface AlgorandContextType {
   connect: (type: 'pera' | 'walletconnect') => Promise<void>;
   disconnect: () => void;
   connected: boolean;
   address: string | null;
   balance: number | null;
-  balance: number | null;
   algodClient: algosdk.Algodv2 | null;
   peraWallet: PeraWalletConnect | null;
   certifyDocument: (documentHash: string, documentName: string) => Promise<string>;
   verifyDocument: (txId: string) => Promise<{ verified: boolean; data: any }>;
 }
+
+const AlgorandContext = createContext<AlgorandContextType | undefined>(undefined);
 
 // Using Algorand TestNet for development
 const algodServer = 'https://testnet-api.algonode.cloud';
@@ -32,10 +31,11 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   const fetchBalance = async (addr: string) => {
     if (!algodClient) return;
     try {
+      console.log('Fetching balance for address:', addr);
       const accountInfo = await algodClient.accountInformation(addr).do();
       console.log('Raw account amount:', accountInfo.amount);
-      // Convert BigInt amount to Number before division
-      const algoBalance = Number(accountInfo.amount) / 1_000_000; // Convert microAlgos to Algos
+      // Convert microAlgos to Algos
+      const algoBalance = accountInfo.amount / 1_000_000;
       console.log('Calculated balance in ALGO:', algoBalance);
       setBalance(algoBalance);
     } catch (error) {
@@ -223,10 +223,14 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   );
 };
 
-export const useAlgorand = () => {
+// Export the hook separately to maintain consistent exports
+export function useAlgorand() {
   const context = useContext(AlgorandContext);
   if (context === undefined) {
     throw new Error('useAlgorand must be used within an AlgorandProvider');
   }
   return context;
-};
+}
+
+// Export the provider
+export { AlgorandProvider };
