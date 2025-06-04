@@ -94,6 +94,11 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       throw new Error('Invalid Algorand address');
     }
 
+    // Store address in a local variable to ensure it's available throughout the function
+    const currentAddress = address;
+    if (!currentAddress)
+      throw new Error('Wallet address not available');
+
     try {
       // Get suggested parameters
       const suggestedParams = await algodClient.getTransactionParams().do();
@@ -110,8 +115,8 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       
       // Create transaction
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-        from: address!,
-        to: address, // Self-transaction
+        from: currentAddress,
+        to: currentAddress, // Self-transaction
         amount: 0,
         note,
         suggestedParams,
