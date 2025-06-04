@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FileCheck, Shield, Clock, CheckCircle, Upload, Search } from 'lucide-react';
+import { FileCheck, Shield, Clock, CheckCircle, Upload, Search, PenSquare } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
   return (
@@ -17,11 +17,11 @@ const LandingPage: React.FC = () => {
               className="md:w-1/2 mb-10 md:mb-0"
             >
               <h1 className="text-4xl md:text-5xl font-heading font-bold leading-tight mb-6">
-                Tamper-proof document certification on Algorand
+                Secure document signatures on Algorand blockchain
               </h1>
               <p className="text-xl md:text-2xl text-gray-200 mb-8">
-                Secure your important documents with blockchain technology.
-                Instant verification, tamper-proof certification.
+                Sign and verify your documents with blockchain technology.
+                Instant verification, tamper-proof digital signatures.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
@@ -66,7 +66,7 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              How ChainStamp Works
+              How AlgoSign Works
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Secure your documents in just a few simple steps with our blockchain-powered certification system.
@@ -118,7 +118,7 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Why Choose ChainStamp
+              Why Choose AlgoSign
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Our blockchain solution provides unparalleled security and transparency for your important documents.
