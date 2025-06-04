@@ -94,8 +94,13 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       fetchBalance(address);
       setConnected(true);
     } catch (error) {
-      console.error('Wallet connection error:', error);
-      throw error;
+      // Handle user cancellation gracefully
+      if (error instanceof Error && error.message === 'Connect modal is closed by user') {
+        console.info('User cancelled wallet connection');
+      } else {
+        console.error('Wallet connection error:', error);
+        throw error;
+      }
     }
   };
 
