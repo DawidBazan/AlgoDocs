@@ -40,7 +40,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     if (!algodClient) return;
     try {
       const accountInfo = await algodClient.accountInformation(addr).do();
-      const algoBalance = accountInfo.amount / 1_000_000; // Convert microAlgos to Algos
+      const algoBalance = Number(accountInfo.amount) / 1_000_000; // Convert microAlgos to Algos
       setBalance(algoBalance);
     } catch (error) {
       console.error('Error fetching balance:', error);
