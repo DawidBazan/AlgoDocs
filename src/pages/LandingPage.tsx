@@ -17,7 +17,7 @@ const LandingPage: React.FC = () => {
               className="md:w-1/2 mb-10 md:mb-0"
             >
               <h1 className="text-4xl md:text-5xl font-heading font-bold leading-tight mb-6">
-                Secure document signatures on Algorand blockchain
+                Secure digital signature on Algorand blockchain
               </h1>
               <p className="text-xl md:text-2xl text-gray-200 mb-8">
                 Sign and verify your documents with blockchain technology.
@@ -29,7 +29,7 @@ const LandingPage: React.FC = () => {
                   className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
                 >
                   <Upload size={20} />
-                  Certify Document
+                  Sign Document
                 </Link>
                 <Link
                   to="/verify"
