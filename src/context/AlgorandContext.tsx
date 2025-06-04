@@ -2,6 +2,12 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import algosdk from 'algosdk';
 import { PeraWalletConnect } from '@perawallet/connect';
 
+// Initialize Pera Wallet with MainNet configuration
+const peraWallet = new PeraWalletConnect({
+  shouldShowSignTxnToast: true,
+  network: "mainnet"
+});
+
 // Using Algorand MainNet
 const algodServer = 'https://mainnet-api.algonode.cloud';
 const algodPort = '';
@@ -26,7 +32,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [address, setAddress] = useState<string | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
   const [algodClient, setAlgodClient] = useState<algosdk.Algodv2 | null>(null);
-  const [peraWallet] = useState<PeraWalletConnect>(() => new PeraWalletConnect());
+  const [wallet] = useState<PeraWalletConnect>(() => peraWallet);
 
   const fetchBalance = async (addr: string) => {
     if (!algodClient) return;
@@ -59,7 +65,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     setAlgodClient(client);
 
     // Reconnect session
-    peraWallet
+    wallet
       .reconnectSession()
       .then((accounts) => {
         if (accounts.length > 0) {
@@ -79,15 +85,15 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     // Cleanup
     return () => {
-      peraWallet.disconnect();
+      wallet.disconnect();
     };
-  }, [peraWallet]);
+  }, [wallet]);
 
   const connect = async (type: 'pera' | 'walletconnect') => {
     try {
       let accounts;
       if (type === 'pera') {
-        accounts = await peraWallet.connect();
+        accounts = await wallet.connect();
       }
       if (!accounts || accounts.length === 0) {
         throw new Error('No accounts selected');
@@ -111,7 +117,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   const disconnect = () => {
-    peraWallet.disconnect();
+    wallet.disconnect();
     setAddress(null);
     setConnected(false);
     setBalance(null);
@@ -159,7 +165,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       });
       
       // Sign transaction with Pera Wallet
-      const signedTxn = await peraWallet.signTransaction([[{ txn, signers: [senderAddress] }]]);
+      const signedTxn = await wallet.signTransaction([[{ txn, signers: [senderAddress] }]]);
       
       // Submit transaction
       const response = await algodClient.sendRawTransaction(signedTxn).do();
@@ -215,7 +221,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     address,
     balance,
     algodClient,
-    peraWallet,
+    peraWallet: wallet,
     certifyDocument,
     verifyDocument,
   };
