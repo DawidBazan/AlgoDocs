@@ -154,17 +154,17 @@ const CertificationPage: React.FC = () => {
                 By proceeding, this document will be certified on the Algorand blockchain with a permanent timestamp and unique identifier. This process cannot be reversed.
               </p>
               
-              <button
-                onClick={handleCertify}
-                disabled={processing}
-                className="btn btn-primary w-full"
-              >
-                {processing ? 'Processing...' : 'Certify Document'}
-              </button>
-              
-              <button className="mt-4 w-full" style={{ display: connected ? 'none' : 'block' }}>
+              {connected ? (
+                <button
+                  onClick={handleCertify}
+                  disabled={processing}
+                  className="btn btn-primary w-full"
+                >
+                  {processing ? 'Processing...' : 'Stamp Document'}
+                </button>
+              ) : (
                 <ConnectWalletButton fullWidth />
-              </button>
+              )}
             </div>
           </div>
         );
