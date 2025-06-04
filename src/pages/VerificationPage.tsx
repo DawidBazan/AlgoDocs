@@ -193,7 +193,7 @@ const VerificationPage: React.FC = () => {
                       
                       <div className="pt-2 border-t border-gray-100">
                         <a 
-                          href={`https://testnet.algoexplorer.io/tx/${result.data.txId}`}
+                          href={`https://algoexplorer.io/tx/${result.data.txId}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-teal-600 hover:text-teal-700 font-medium"

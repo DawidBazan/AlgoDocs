@@ -2,6 +2,11 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import algosdk from 'algosdk';
 import { PeraWalletConnect } from '@perawallet/connect';
 
+// Using Algorand MainNet
+const algodServer = 'https://mainnet-api.algonode.cloud';
+const algodPort = '';
+const algodToken = '';
+
 interface AlgorandContextType {
   connect: (type: 'pera' | 'walletconnect') => Promise<void>;
   disconnect: () => void;
@@ -15,11 +20,6 @@ interface AlgorandContextType {
 }
 
 const AlgorandContext = createContext<AlgorandContextType | undefined>(undefined);
-
-// Using Algorand TestNet for development
-const algodServer = 'https://testnet-api.algonode.cloud';
-const algodPort = '';
-const algodToken = '';
 
 export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [connected, setConnected] = useState(false);
@@ -122,8 +122,12 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       throw new Error('Algorand client not initialized');
     }
 
-    if (typeof address !== 'string' || !algosdk.isValidAddress(address)) {
-      throw new Error('Valid wallet address required');
+    if (!address) {
+      throw new Error('Wallet address is required. Please connect your wallet first.');
+    }
+
+    if (!algosdk.isValidAddress(address)) {
+      throw new Error('Invalid wallet address format');
     }
     
     if (!balance || balance < 0.001) {
