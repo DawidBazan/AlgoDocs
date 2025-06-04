@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Link as LinkIcon, Menu, X } from 'lucide-react';
+import { Link as LinkIcon, Menu, X, PenSquare } from 'lucide-react';
 import { useAlgorand } from '../context/AlgorandContext';
 import ConnectWalletButton from './ConnectWalletButton';
 
