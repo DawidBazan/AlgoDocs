@@ -50,8 +50,8 @@ const LandingPage: React.FC = () => {
                 <div className="absolute -top-4 -left-4 w-full h-full border-2 border-teal-500 rounded-lg"></div>
                 <div className="relative bg-white rounded-lg shadow-lg p-6">
                   <img
-                    src="https://images.pexels.com/photos/5473955/pexels-photo-5473955.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                    alt="Digital document security"
+                    src="https://images.pexels.com/photos/8851019/pexels-photo-8851019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt="Document with official stamp"
                     className="w-full h-auto rounded"
                   />
                 </div>
