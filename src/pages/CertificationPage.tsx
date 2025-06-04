@@ -23,7 +23,7 @@ const CertificationPage: React.FC = () => {
   const [certificateId, setCertificateId] = useState<string>('');
   const [processing, setProcessing] = useState<boolean>(false);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
-  const { connected, connect, certifyDocument, address } = useAlgorand();
+  const { connected, connect, certifyDocument, address, balance } = useAlgorand();
 
   const handleFileDrop = async (droppedFile: File) => {
     setFile(droppedFile);
@@ -74,6 +74,7 @@ const CertificationPage: React.FC = () => {
       // Move to complete step
       setCurrentStep(CertificationStep.Complete);
     } catch (error) {
+      alert(error instanceof Error ? error.message : 'An error occurred while certifying the document');
       console.error('Error certifying document:', error);
     } finally {
       setProcessing(false);
@@ -154,10 +155,23 @@ const CertificationPage: React.FC = () => {
                 By proceeding, this document will be certified on the Algorand blockchain with a permanent timestamp and unique identifier. This process cannot be reversed.
               </p>
               
+              {connected && address && balance !== null && balance < 0.001 && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-start">
+                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
+                    <div>
+                      <p className="text-red-800 font-medium">Insufficient Balance</p>
+                      <p className="text-red-700 text-sm mt-1">
+                        You need at least 0.001 ALGO to certify a document. Current balance: {balance.toFixed(6)} ALGO
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
               {connected && address ? (
                 <button
                   onClick={handleCertify}
-                  disabled={processing}
+                  disabled={processing || (balance !== null && balance < 0.001)}
                   className="btn btn-primary w-full"
                 >
                   {processing ? 'Processing...' : 'Stamp Document'}

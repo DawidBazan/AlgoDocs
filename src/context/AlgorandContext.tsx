@@ -7,6 +7,7 @@ interface AlgorandContextType {
   disconnect: () => void;
   connected: boolean;
   address: string | null;
+  balance: number | null;
   algodClient: algosdk.Algodv2 | null;
   peraWallet: PeraWalletConnect | null;
   certifyDocument: (documentHash: string, documentName: string) => Promise<string>;
@@ -31,8 +32,20 @@ const algodToken = '';
 export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [connected, setConnected] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
+  const [balance, setBalance] = useState<number | null>(null);
   const [algodClient, setAlgodClient] = useState<algosdk.Algodv2 | null>(null);
   const [peraWallet] = useState<PeraWalletConnect>(() => new PeraWalletConnect());
+
+  const fetchBalance = async (addr: string) => {
+    if (!algodClient) return;
+    try {
+      const accountInfo = await algodClient.accountInformation(addr).do();
+      setBalance(accountInfo.amount / 1000000); // Convert microAlgos to Algos
+    } catch (error) {
+      console.error('Error fetching balance:', error);
+      setBalance(null);
+    }
+  };
 
   useEffect(() => {
     // Initialize Algorand client
@@ -45,6 +58,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       .then((accounts) => {
         if (accounts.length > 0) {
           setAddress(accounts[0]);
+          fetchBalance(accounts[0]);
           setConnected(true);
         } else {
           setAddress(null);
@@ -77,6 +91,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       console.log('Successfully connected to wallet:', address);
 
       setAddress(address);
+      fetchBalance(address);
       setConnected(true);
     } catch (error) {
       console.error('Wallet connection error:', error);
@@ -88,6 +103,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     peraWallet.disconnect();
     setAddress(null);
     setConnected(false);
+    setBalance(null);
   };
 
   const certifyDocument = async (documentHash: string, documentName: string): Promise<string> => {
@@ -97,6 +113,10 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     if (typeof address !== 'string' || !algosdk.isValidAddress(address)) {
       throw new Error('Valid wallet address required');
+    }
+    
+    if (!balance || balance < 0.001) {
+      throw new Error('Insufficient balance. You need at least 0.001 ALGO to certify a document.');
     }
 
     const senderAddress: string = address; // Type assertion after validation
@@ -178,6 +198,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     disconnect,
     connected,
     address,
+    balance,
     algodClient,
     peraWallet,
     certifyDocument,
