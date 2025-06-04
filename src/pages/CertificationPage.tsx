@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileCheck, Check, Download, ArrowRight, Wallet } from 'lucide-react';
+import { FileCheck, Check, Download, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DocumentDropzone from '../components/DocumentDropzone';
 import QRCode from 'qrcode.react';
+import ConnectWalletButton from '../components/ConnectWalletButton';
 import { useAlgorand } from '../context/AlgorandContext';
 import { generateDocumentHash, addWatermark } from '../utils/documentUtils';
 
@@ -106,13 +107,7 @@ const CertificationPage: React.FC = () => {
                 <p className="text-yellow-700 text-sm mb-4">
                   You need to connect your Algorand wallet to certify documents.
                 </p>
-                <button 
-                  className="btn btn-primary" 
-                  onClick={connect}
-                > 
-                  <Wallet size={20} />
-                  Connect Wallet
-                </button>
+                <ConnectWalletButton fullWidth />
               </div>
             )}
           </div>
@@ -160,12 +155,15 @@ const CertificationPage: React.FC = () => {
               </p>
               
               <button
-                onClick={connected ? handleCertify : connect}
+                onClick={handleCertify}
                 disabled={processing}
                 className="btn btn-primary w-full"
               >
-                <Wallet size={20} />
-                {processing ? 'Processing...' : connected ? 'Certify Document' : 'Connect Wallet to Certify'}
+                {processing ? 'Processing...' : 'Certify Document'}
+              </button>
+              
+              <button className="mt-4 w-full" style={{ display: connected ? 'none' : 'block' }}>
+                <ConnectWalletButton fullWidth />
               </button>
             </div>
           </div>
