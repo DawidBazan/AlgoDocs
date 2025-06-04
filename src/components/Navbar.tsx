@@ -29,10 +29,10 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-navy-700 text-white flex items-center justify-center rounded">
-              <LinkIcon size={20} />
+              <PenSquare size={20} />
             </div>
             <span className="text-xl font-heading font-semibold text-navy-900">
-              ChainStamp
+              AlgoSign
             </span>
           </Link>
 
