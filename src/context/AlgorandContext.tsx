@@ -46,10 +46,15 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
         if (accounts.length > 0) {
           setAddress(accounts[0]);
           setConnected(true);
+        } else {
+          setAddress(null);
+          setConnected(false);
         }
       })
       .catch((error) => {
         console.log('Reconnect failed:', error);
+        setAddress(null);
+        setConnected(false);
       });
 
     // Cleanup
