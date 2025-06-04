@@ -2,27 +2,20 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import algosdk from 'algosdk';
 import { PeraWalletConnect } from '@perawallet/connect';
 
+const AlgorandContext = createContext<AlgorandContextType | undefined>(undefined);
+
 interface AlgorandContextType {
   connect: (type: 'pera' | 'walletconnect') => Promise<void>;
   disconnect: () => void;
   connected: boolean;
   address: string | null;
   balance: number | null;
+  balance: number | null;
   algodClient: algosdk.Algodv2 | null;
   peraWallet: PeraWalletConnect | null;
   certifyDocument: (documentHash: string, documentName: string) => Promise<string>;
   verifyDocument: (txId: string) => Promise<{ verified: boolean; data: any }>;
 }
-
-export const useAlgorand = () => {
-  const context = useContext(AlgorandContext);
-  if (context === undefined) {
-    throw new Error('useAlgorand must be used within an AlgorandProvider');
-  }
-  return context;
-};
-
-const AlgorandContext = createContext<AlgorandContextType | undefined>(undefined);
 
 // Using Algorand TestNet for development
 const algodServer = 'https://testnet-api.algonode.cloud';
@@ -228,4 +221,12 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       {children}
     </AlgorandContext.Provider>
   );
+};
+
+export const useAlgorand = () => {
+  const context = useContext(AlgorandContext);
+  if (context === undefined) {
+    throw new Error('useAlgorand must be used within an AlgorandProvider');
+  }
+  return context;
 };
