@@ -40,12 +40,22 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     if (!algodClient) return;
     try {
       const accountInfo = await algodClient.accountInformation(addr).do();
-      setBalance(Number(accountInfo.amount) / 1000000); // Convert microAlgos to Algos
+      const algoBalance = accountInfo.amount / 1_000_000; // Convert microAlgos to Algos
+      setBalance(algoBalance);
     } catch (error) {
       console.error('Error fetching balance:', error);
       setBalance(null);
     }
   };
+
+  // Update balance when address changes
+  useEffect(() => {
+    if (address) {
+      fetchBalance(address);
+    } else {
+      setBalance(null);
+    }
+  }, [address]);
 
   useEffect(() => {
     // Initialize Algorand client

@@ -45,7 +45,7 @@ const CertificationPage: React.FC = () => {
   };
 
   const handleCertify = async () => {
-    if (!file || !documentHash || !connected || !address) return;
+    if (!file || !documentHash || !connected || !address || !balance || balance < 0.001) return;
     
     try {
       setProcessing(true);
@@ -184,8 +184,10 @@ const CertificationPage: React.FC = () => {
               {connected && address ? (
                 <button
                   onClick={handleCertify}
-                  disabled={processing || (balance !== null && balance < 0.001)}
-                  className="btn btn-primary w-full"
+                  disabled={processing || !balance || balance < 0.001}
+                  className={`btn w-full ${
+                    !balance || balance < 0.001 ? 'bg-gray-400 cursor-not-allowed' : 'btn-primary'
+                  }`}
                 >
                   {processing ? 'Processing...' : 'Stamp Document'}
                 </button>
