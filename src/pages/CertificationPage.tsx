@@ -237,10 +237,10 @@ const CertificationPage: React.FC = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-          Document Certification
+          Document Verification
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Secure your document on the Algorand blockchain with a tamper-proof certification.
+          Create an immutable blockchain record of your document's authenticity.
         </p>
       </div>
 
@@ -249,8 +249,8 @@ const CertificationPage: React.FC = () => {
         <div className="flex justify-between">
           {[
             { step: CertificationStep.Upload, label: 'Upload' },
-            { step: CertificationStep.Process, label: 'Process' },
-            { step: CertificationStep.Complete, label: 'Complete' },
+            { step: CertificationStep.Process, label: 'Verify' },
+            { step: CertificationStep.Complete, label: 'Secure' },
           ].map((item, index) => (
             <div
               key={index}

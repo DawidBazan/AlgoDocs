@@ -17,11 +17,11 @@ const LandingPage: React.FC = () => {
               className="md:w-1/2 mb-10 md:mb-0"
             >
               <h1 className="text-4xl md:text-5xl font-heading font-bold leading-tight mb-6">
-                Secure digital signature on Algorand blockchain
+                Blockchain-Powered Document Verification
               </h1>
               <p className="text-xl md:text-2xl text-gray-200 mb-8">
-                Sign and verify your documents with blockchain technology.
-                Instant verification, tamper-proof digital signatures.
+                Create immutable proof of document authenticity with Algorand blockchain.
+                Instant verification, tamper-proof security for your critical documents.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
@@ -29,14 +29,14 @@ const LandingPage: React.FC = () => {
                   className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
                 >
                   <Upload size={20} />
-                  Sign Document
+                  Verify Document
                 </Link>
                 <Link
                   to="/verify"
                   className="btn bg-white hover:bg-gray-100 text-navy-900 font-medium"
                 >
                   <Search size={20} />
-                  Verify Document
+                  Check Status
                 </Link>
               </div>
             </motion.div>
@@ -66,10 +66,10 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              How AlgoSign Works
+              How AuthStamp Works
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Secure your documents in just a few simple steps with our blockchain-powered certification system.
+              Protect your documents with blockchain-powered verification in three simple steps.
             </p>
           </div>
 
@@ -77,21 +77,21 @@ const LandingPage: React.FC = () => {
             {[
               {
                 icon: <Upload className="w-12 h-12 text-teal-500" />,
-                title: 'Upload Your Document',
+                title: 'Submit Document',
                 description:
-                  'Drag and drop your document into our secure upload zone. We support PDFs, Word documents, Excel spreadsheets, and more.',
+                  'Upload your document to our secure platform. We support PDFs, Word documents, Excel files, and more.',
               },
               {
                 icon: <FileCheck className="w-12 h-12 text-teal-500" />,
-                title: 'Generate Certification',
+                title: 'Create Blockchain Record',
                 description:
-                  'We create a unique cryptographic hash of your document and store it on the Algorand blockchain with a timestamp and your information.',
+                  'We generate a unique cryptographic fingerprint and permanently record it on the Algorand blockchain.',
               },
               {
                 icon: <CheckCircle className="w-12 h-12 text-teal-500" />,
-                title: 'Download & Share',
+                title: 'Receive Verified Document',
                 description:
-                  'Download your certified document with an embedded QR code that anyone can scan to verify its authenticity instantly.',
+                  'Get your verified document with an embedded QR code for instant authenticity verification anytime, anywhere.',
               },
             ].map((step, index) => (
               <motion.div
@@ -118,10 +118,10 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Why Choose AlgoSign
+              Why Choose AuthStamp
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our blockchain solution provides unparalleled security and transparency for your important documents.
+              Enterprise-grade document security powered by blockchain technology.
             </p>
           </div>
 
@@ -129,21 +129,21 @@ const LandingPage: React.FC = () => {
             {[
               {
                 icon: <Shield className="w-10 h-10 text-navy-700" />,
-                title: 'Tamper-Proof Security',
+                title: 'Military-Grade Security',
                 description:
-                  'Once certified on the blockchain, your document\'s fingerprint cannot be altered or tampered with.',
+                  'Documents are protected by the same cryptographic technology that secures billions in digital assets.',
               },
               {
                 icon: <Clock className="w-10 h-10 text-navy-700" />,
-                title: 'Timestamped Proof',
+                title: 'Permanent Record',
                 description:
-                  'Each certification includes a precise timestamp, providing undeniable proof of when the document existed.',
+                  'Every verification creates an immutable blockchain record with precise timestamp and authentication details.',
               },
               {
                 icon: <Search className="w-10 h-10 text-navy-700" />,
                 title: 'Instant Verification',
                 description:
-                  'Anyone can verify the authenticity of your document in seconds, without needing special software.',
+                  'Verify document authenticity instantly by scanning the QR code or checking the blockchain record.',
               },
             ].map((feature, index) => (
               <motion.div
@@ -175,10 +175,10 @@ const LandingPage: React.FC = () => {
       <section className="py-20 bg-gradient-to-r from-navy-800 to-navy-900 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-            Ready to secure your documents?
+            Ready to protect your documents?
           </h2>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-            Join thousands of individuals and businesses who trust ChainStamp for their document certification needs.
+            Join leading organizations who trust AuthStamp for tamper-proof document verification.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
@@ -186,14 +186,14 @@ const LandingPage: React.FC = () => {
               className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
             >
               <Upload size={20} />
-              Start Certifying Now
+              Verify Your Document
             </Link>
             <Link
               to="/verify"
               className="btn bg-white hover:bg-gray-100 text-navy-900 font-medium"
             >
               <Search size={20} />
-              Verify a Document
+              Check Document Status
             </Link>
           </div>
         </div>

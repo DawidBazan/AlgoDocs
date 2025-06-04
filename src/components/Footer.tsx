@@ -34,12 +34,12 @@ const Footer: React.FC = () => {
                 </svg>
               </div>
               <span className="text-lg font-heading font-semibold text-navy-900">
-                AlgoSign
+                AuthStamp
               </span>
             </div>
             <p className="text-gray-600 mb-4">
-              Secure document signing and verification powered by Algorand blockchain.
-              Tamper-proof digital signatures for your important documents.
+              Advanced document verification powered by Algorand blockchain technology.
+              Create immutable proof of document authenticity with blockchain security.
             </p>
             <div className="flex space-x-4">
               <a
@@ -75,12 +75,12 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/certify" className="text-gray-600 hover:text-navy-700 transition-colors">
-                  Certify Document
+                  Verify Document
                 </Link>
               </li>
               <li>
                 <Link to="/verify" className="text-gray-600 hover:text-navy-700 transition-colors">
-                  Verify Document
+                  Check Status
                 </Link>
               </li>
             </ul>
@@ -103,6 +103,11 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                  Security
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Algorand Blockchain
                 </a>
               </li>
@@ -112,7 +117,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {currentYear} AlgoSign. All rights reserved.
+            © {currentYear} AuthStamp. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">

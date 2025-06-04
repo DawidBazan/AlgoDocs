@@ -19,8 +19,8 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Certify', path: '/certify' },
-    { name: 'Verify', path: '/verify' },
+    { name: 'Verify Document', path: '/certify' },
+    { name: 'Check Status', path: '/verify' },
   ];
 
   return (
@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
               <PenSquare size={20} />
             </div>
             <span className="text-xl font-heading font-semibold text-navy-900">
-              AlgoSign
+              AuthStamp
             </span>
           </Link>
 
