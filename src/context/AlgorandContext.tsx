@@ -94,6 +94,10 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       throw new Error('Wallet not connected');
     }
 
+    if (!algosdk.isValidAddress(address)) {
+      throw new Error('Invalid Algorand address');
+    }
+
     try {
       // Get suggested parameters
       const suggestedParams = await algodClient.getTransactionParams().do();
