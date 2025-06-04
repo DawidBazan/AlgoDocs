@@ -231,6 +231,3 @@ export function useAlgorand() {
   }
   return context;
 }
-
-// Export the provider
-export { AlgorandProvider };
