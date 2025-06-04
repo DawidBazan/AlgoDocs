@@ -75,12 +75,12 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/certify" className="text-gray-600 hover:text-navy-700 transition-colors">
-                  Verify Document
+                  Stamp Document
                 </Link>
               </li>
               <li>
                 <Link to="/verify" className="text-gray-600 hover:text-navy-700 transition-colors">
-                  Check Status
+                  Verify Document
                 </Link>
               </li>
             </ul>

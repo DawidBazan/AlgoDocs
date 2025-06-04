@@ -28,15 +28,15 @@ const LandingPage: React.FC = () => {
                   to="/certify"
                   className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
                 >
-                  <Upload size={20} />
-                  Verify Document
+                  <PenSquare size={20} />
+                  Stamp Document
                 </Link>
                 <Link
                   to="/verify"
                   className="btn bg-white hover:bg-gray-100 text-navy-900 font-medium"
                 >
                   <Search size={20} />
-                  Check Status
+                  Verify
                 </Link>
               </div>
             </motion.div>
@@ -185,15 +185,15 @@ const LandingPage: React.FC = () => {
               to="/certify"
               className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
             >
-              <Upload size={20} />
-              Verify Your Document
+              <PenSquare size={20} />
+              Stamp Your Document
             </Link>
             <Link
               to="/verify"
               className="btn bg-white hover:bg-gray-100 text-navy-900 font-medium"
             >
               <Search size={20} />
-              Check Document Status
+              Verify Document
             </Link>
           </div>
         </div>

@@ -237,7 +237,7 @@ const CertificationPage: React.FC = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-          Document Verification
+          Document Stamping
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Create an immutable blockchain record of your document's authenticity.
@@ -249,7 +249,7 @@ const CertificationPage: React.FC = () => {
         <div className="flex justify-between">
           {[
             { step: CertificationStep.Upload, label: 'Upload' },
-            { step: CertificationStep.Process, label: 'Verify' },
+            { step: CertificationStep.Process, label: 'Stamp' },
             { step: CertificationStep.Complete, label: 'Secure' },
           ].map((item, index) => (
             <div

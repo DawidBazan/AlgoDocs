@@ -19,8 +19,8 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Verify Document', path: '/certify' },
-    { name: 'Check Status', path: '/verify' },
+    { name: 'Stamp', path: '/certify' },
+    { name: 'Verify', path: '/verify' },
   ];
 
   return (
