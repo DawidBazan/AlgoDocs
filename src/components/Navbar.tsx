@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Link as LinkIcon, Menu, X, PenSquare } from 'lucide-react';
+import { Menu, X, Stamp } from 'lucide-react';
 import { useAlgorand } from '../context/AlgorandContext';
 import ConnectWalletButton from './ConnectWalletButton';
 
@@ -28,8 +28,8 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-navy-700 text-white flex items-center justify-center rounded">
-              <PenSquare size={20} />
+            <div className="w-8 h-8 bg-navy-700 text-white flex items-center justify-center rounded-full">
+              <Stamp size={20} />
             </div>
             <span className="text-xl font-heading font-semibold text-navy-900">
               AuthStamp
