@@ -63,11 +63,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       let accounts;
       if (type === 'pera') {
         accounts = await peraWallet.connect();
-      } else {
-        // TODO: Implement WalletConnect
-        throw new Error('WalletConnect support coming soon');
       }
-
       if (!accounts || accounts.length === 0) {
         throw new Error('No accounts selected');
       }
@@ -103,7 +99,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       const suggestedParams = await algodClient.getTransactionParams().do();
       
       // Create a note with document information
-      const noteString = JSON.stringify({
+      const noteString = JSON.stringify({ 
         type: 'document_certification',
         hash: documentHash,
         name: documentName,
@@ -114,7 +110,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       
       // Create transaction
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-        from: address,
+        from: address!,
         to: address, // Self-transaction
         amount: 0,
         note,

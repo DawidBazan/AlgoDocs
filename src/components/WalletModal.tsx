@@ -52,18 +52,6 @@ const WalletModal: React.FC<WalletModalProps> = ({ isOpen, onClose, onSelectWall
               />
               <span className="font-medium">Pera Wallet</span>
             </button>
-
-            <button
-              onClick={() => onSelectWallet('walletconnect')}
-              className="w-full flex items-center p-4 rounded-lg border border-gray-200 hover:border-navy-500 transition-colors"
-            >
-              <img
-                src="https://docs.walletconnect.com/img/walletconnect-logo.svg"
-                alt="WalletConnect"
-                className="w-8 h-8 mr-3"
-              />
-              <span className="font-medium">WalletConnect</span>
-            </button>
           </div>
         </motion.div>
       </div>
