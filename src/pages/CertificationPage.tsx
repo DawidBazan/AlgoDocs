@@ -4,6 +4,7 @@ import { FileCheck, Check, Download, ArrowRight, AlertCircle } from 'lucide-reac
 import { Link } from 'react-router-dom';
 import DocumentDropzone from '../components/DocumentDropzone';
 import QRCode from 'qrcode.react';
+import TransactionModal from '../components/TransactionModal';
 import ConnectWalletButton from '../components/ConnectWalletButton';
 import { useAlgorand } from '../context/AlgorandContext';
 import { generateDocumentHash, addWatermark } from '../utils/documentUtils';
@@ -24,7 +25,10 @@ const CertificationPage: React.FC = () => {
   const [processing, setProcessing] = useState<boolean>(false);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showTransactionModal, setShowTransactionModal] = useState(false);
   const { connected, connect, certifyDocument, address, balance } = useAlgorand();
+
+  const TRANSACTION_FEE = 0.001; // Standard Algorand transaction fee
 
   const handleFileDrop = async (droppedFile: File) => {
     setFile(droppedFile);
@@ -42,6 +46,11 @@ const CertificationPage: React.FC = () => {
     } finally {
       setProcessing(false);
     }
+  };
+
+  const handleTransactionConfirm = async () => {
+    setShowTransactionModal(false);
+    await handleCertify();
   };
 
   const handleCertify = async () => {
@@ -183,7 +192,7 @@ const CertificationPage: React.FC = () => {
               )}
               {connected && address ? (
                 <button
-                  onClick={handleCertify}
+                  onClick={() => setShowTransactionModal(true)}
                   disabled={processing || !balance || balance < 0.001}
                   className={`btn w-full ${
                     !balance || balance < 0.001 ? 'bg-gray-400 cursor-not-allowed' : 'btn-primary'
@@ -195,6 +204,14 @@ const CertificationPage: React.FC = () => {
                 <ConnectWalletButton fullWidth />
               )}
             </div>
+            
+            <TransactionModal
+              isOpen={showTransactionModal}
+              onClose={() => setShowTransactionModal(false)}
+              onConfirm={handleTransactionConfirm}
+              processing={processing}
+              transactionFee={TRANSACTION_FEE}
+            />
           </div>
         );
       
