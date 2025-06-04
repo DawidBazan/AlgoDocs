@@ -256,7 +256,7 @@ const VerificationPage: React.FC = () => {
                 <div className="flex items-start">
                   <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0" />
                   <p className="text-blue-800 text-sm">
-                    Upload the document you want to verify. If it contains a ChainStamp QR code, we'll automatically extract the certification details. 
+                    Upload the document you want to verify. If it contains an AlgoSign QR code, we'll automatically extract the certification details.
                     Otherwise, you'll be prompted to enter the certification ID.
                   </p>
                 </div>
