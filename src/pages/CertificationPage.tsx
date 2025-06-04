@@ -23,7 +23,7 @@ const CertificationPage: React.FC = () => {
   const [certificateId, setCertificateId] = useState<string>('');
   const [processing, setProcessing] = useState<boolean>(false);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
-  const { connected, connect, certifyDocument } = useAlgorand();
+  const { connected, connect, certifyDocument, address } = useAlgorand();
 
   const handleFileDrop = async (droppedFile: File) => {
     setFile(droppedFile);
@@ -44,7 +44,7 @@ const CertificationPage: React.FC = () => {
   };
 
   const handleCertify = async () => {
-    if (!file || !documentHash || !connected) return;
+    if (!file || !documentHash || !connected || !address) return;
     
     try {
       setProcessing(true);
@@ -154,7 +154,7 @@ const CertificationPage: React.FC = () => {
                 By proceeding, this document will be certified on the Algorand blockchain with a permanent timestamp and unique identifier. This process cannot be reversed.
               </p>
               
-              {connected ? (
+              {connected && address ? (
                 <button
                   onClick={handleCertify}
                   disabled={processing}
