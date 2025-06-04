@@ -33,9 +33,9 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     try {
       console.log('Fetching balance for address:', addr);
       const accountInfo = await algodClient.accountInformation(addr).do();
-      console.log('Raw account amount:', accountInfo.amount);
-      // Convert microAlgos to Algos
-      const algoBalance = accountInfo.amount / 1_000_000;
+      const rawAmount = BigInt(accountInfo.amount);
+      console.log('Raw account amount:', rawAmount.toString());
+      const algoBalance = Number(rawAmount) / 1_000_000;
       console.log('Calculated balance in ALGO:', algoBalance);
       setBalance(algoBalance);
     } catch (error) {
