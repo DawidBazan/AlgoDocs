@@ -86,19 +86,15 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   const certifyDocument = async (documentHash: string, documentName: string): Promise<string> => {
-    if (!algodClient || !address) {
-      throw new Error('Wallet not connected');
+    if (!algodClient) {
+      throw new Error('Algorand client not initialized');
     }
 
-    if (!algosdk.isValidAddress(address)) {
-      throw new Error('Invalid Algorand address');
+    if (typeof address !== 'string' || !algosdk.isValidAddress(address)) {
+      throw new Error('Valid wallet address required');
     }
 
-    // Store address in a local variable to ensure it's available throughout the function
-    const currentAddress = address;
-    if (!currentAddress)
-      throw new Error('Wallet address not available');
-
+    const senderAddress: string = address; // Type assertion after validation
     try {
       // Get suggested parameters
       const suggestedParams = await algodClient.getTransactionParams().do();
@@ -115,15 +111,15 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
       
       // Create transaction
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-        from: currentAddress,
-        to: currentAddress, // Self-transaction
+        from: senderAddress,
+        to: senderAddress, // Self-transaction
         amount: 0,
         note,
         suggestedParams,
       });
       
       // Sign transaction with Pera Wallet
-      const signedTxn = await peraWallet.signTransaction([[{ txn, signers: [address] }]]);
+      const signedTxn = await peraWallet.signTransaction([[{ txn, signers: [senderAddress] }]]);
       
       // Submit transaction
       const response = await algodClient.sendRawTransaction(signedTxn).do();
