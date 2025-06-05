@@ -98,11 +98,11 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center">
-          <p className="text-gray-500 text-sm mb-4">
+        <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-sm mb-4 md:mb-0">
             © {currentYear} AlgoDocs. All rights reserved.
           </p>
-          <div className="flex justify-center items-center space-x-6">
+          <div className="flex space-x-6">
             <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Privacy Policy
             </a>
