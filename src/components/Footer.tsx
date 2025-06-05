@@ -109,11 +109,18 @@ const Footer: React.FC = () => {
             <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Terms of Service
             </a>
-            <img
-              src="/black_circle_360x360.png"
-              alt="Powered by Bolt"
-              className="w-5 h-5 object-contain"
-            />
+            <a
+              href="https://bolt.new"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center"
+            >
+              <img
+                src="/black_circle_360x360.png"
+                alt="Powered by Bolt"
+                className="w-10 h-10 object-contain"
+              />
+            </a>
           </div>
         </div>
       </div>
