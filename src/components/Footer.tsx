@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
             © {currentYear} AlgoDocs. All rights reserved.
           </p>
-          <div className="flex space-x-6">
+          <div className="flex items-center space-x-6">
             <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Privacy Policy
             </a>
@@ -110,7 +110,11 @@ const Footer: React.FC = () => {
               Terms of Service
             </a>
             <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
-              <img src="/black_circle_360x360.png" alt="Bolt" className="w-10 h-10 object-contain" />
+              <img 
+                src="/black_circle_360x360.png" 
+                alt="Bolt" 
+                className="w-8 h-8 md:w-10 md:h-10 object-contain transition-transform hover:scale-110" 
+              />
             </a>
           </div>
         </div>
