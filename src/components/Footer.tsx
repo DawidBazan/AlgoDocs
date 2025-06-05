@@ -11,9 +11,11 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-6 h-6 bg-navy-700 text-white flex items-center justify-center rounded-full">
-                <Stamp size={14} />
-              </div>
+              <img
+                src="/Screenshot 2025-06-05 at 17.08.49.png"
+                alt="AlgoDocs Logo"
+                className="w-6 h-6"
+              />
               <span className="text-lg font-heading font-semibold text-navy-900">
                 AlgoDocs
               </span>
