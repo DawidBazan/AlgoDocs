@@ -13,8 +13,8 @@ const Footer: React.FC = () => {
             <div className="flex items-center space-x-2 mb-4">
               <img
                 src="/algodocs-logo.png"
-                alt="AlgoDocs Logo"
-                className="w-6 h-6"
+                alt="AlgoDocs"
+                className="w-6 h-6 object-contain"
               />
               <span className="text-lg font-heading font-semibold text-navy-900">
                 AlgoDocs
