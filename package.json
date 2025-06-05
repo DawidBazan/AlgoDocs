@@ -1,6 +1,6 @@
-@@ -1,4 +1,5 @@
- {
-+  "type": "module",
-   "scripts": {
-     "dev": "vite"
-   },
+{
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  }
+}
