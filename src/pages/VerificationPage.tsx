@@ -230,7 +230,7 @@ const VerificationPage: React.FC = () => {
           Check Document Status
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Verify the authenticity of an AuthStamp protected document.
+          Verify the authenticity of an AlgoDocs protected document.
         </p>
       </div>
 
@@ -256,7 +256,7 @@ const VerificationPage: React.FC = () => {
                 <div className="flex items-start">
                   <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0" />
                   <p className="text-blue-800 text-sm">
-                    Upload the document to verify its authenticity. If it contains an AuthStamp QR code, we'll automatically validate it against the blockchain record.
+                    Upload the document to verify its authenticity. If it contains an AlgoDocs QR code, we'll automatically validate it against the blockchain record.
                     You can also enter the verification ID manually.
                   </p>
                 </div>

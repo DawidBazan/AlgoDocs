@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
               <Stamp size={20} />
             </div>
             <span className="text-xl font-heading font-semibold text-navy-900">
-              AuthStamp
+              AlgoDocs
             </span>
           </Link>
 
