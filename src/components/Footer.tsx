@@ -113,8 +113,9 @@ const Footer: React.FC = () => {
               href="https://bolt.new"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center"
+              className="flex items-center space-x-2 text-gray-500 hover:text-navy-700 text-sm transition-colors"
             >
+              <span>Powered by</span>
               <img
                 src="/black_circle_360x360.png"
                 alt="Powered by Bolt"
