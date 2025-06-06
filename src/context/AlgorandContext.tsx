@@ -209,7 +209,6 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
           const data = await response.json();
           txInfo = data.transaction;
           // For indexer transactions, data is at the top level
-          log(txInfo)
           note = txInfo.note;
           sender = txInfo.sender;
           confirmedRound = txInfo['confirmed-round'];
