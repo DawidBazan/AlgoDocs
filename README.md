@@ -2,7 +2,7 @@
 
 AlgoDocs is a secure document verification platform powered by the Algorand blockchain. It enables users to create immutable proof of document authenticity using blockchain technology.
 
-![AlgoDocs Logo](/algodocs-logo.png)
+![AlgoDocs Logo](/logo.png)
 
 ## Features
 
