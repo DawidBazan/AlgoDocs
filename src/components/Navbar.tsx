@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="/algodocs-logo.png"
+              src="/logo.png"
               alt="AlgoDocs Logo"
               className="w-8 h-8 object-contain"
             />
