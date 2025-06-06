@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <img
-                src="/algodocs-logo.png"
+                src="/logo.png"
                 alt="AlgoDocs Logo"
                 className="w-6 h-6 object-contain"
               />
