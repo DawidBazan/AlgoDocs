@@ -186,31 +186,58 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     }
 
     try {
-      // Get transaction information
-      const txInfo = await algodClient.pendingTransactionInformation(txId).do();
+      // Get transaction information from the blockchain
+      let txInfo;
+      try {
+        // First try to get from pending transactions
+        txInfo = await algodClient.pendingTransactionInformation(txId).do();
+      } catch (pendingError) {
+        // If not in pending, try to get confirmed transaction
+        try {
+          const indexerUrl = 'https://mainnet-idx.algonode.cloud';
+          const response = await fetch(`${indexerUrl}/v2/transactions/${txId}`);
+          if (!response.ok) {
+            throw new Error('Transaction not found');
+          }
+          const data = await response.json();
+          txInfo = data.transaction;
+        } catch (indexerError) {
+          throw new Error('Transaction not found on blockchain');
+        }
+      }
       
+      if (!txInfo || !txInfo.note) {
+        throw new Error('Transaction found but contains no certification data');
+      }
+
       // Decode note
       const noteBuffer = Buffer.from(txInfo.note, 'base64');
       const noteString = new TextDecoder().decode(noteBuffer);
-      const data = JSON.parse(noteString);
+      
+      let data;
+      try {
+        data = JSON.parse(noteString);
+      } catch (parseError) {
+        throw new Error('Invalid certification data format');
+      }
       
       // Verify it's a document certification
       if (data.type !== 'document_certification') {
-        return { verified: false, data: null };
+        throw new Error('Transaction is not a document certification');
       }
       
       return { 
         verified: true, 
         data: {
           ...data,
-          sender: txInfo.sender,
-          confirmedRound: txInfo.confirmedRound,
+          sender: txInfo.sender || txInfo['from'],
+          confirmedRound: txInfo.confirmedRound || txInfo['confirmed-round'],
           txId
         } 
       };
     } catch (error) {
       console.error('Error verifying document:', error);
-      return { verified: false, data: null };
+      throw error;
     }
   };
 
