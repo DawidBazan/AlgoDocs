@@ -188,9 +188,16 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     try {
       // Get transaction information from the blockchain
       let txInfo;
+      let note;
+      let sender;
+      let confirmedRound;
       try {
         // First try to get from pending transactions
         txInfo = await algodClient.pendingTransactionInformation(txId).do();
+        // For pending transactions, data is nested under txn property
+        note = txInfo.txn?.note;
+        sender = txInfo.txn?.snd;
+        confirmedRound = txInfo['confirmed-round'];
       } catch (pendingError) {
         // If not in pending, try to get confirmed transaction
         try {
@@ -201,17 +208,21 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
           }
           const data = await response.json();
           txInfo = data.transaction;
+          // For indexer transactions, data is at the top level
+          note = txInfo.note;
+          sender = txInfo.sender;
+          confirmedRound = txInfo['confirmed-round'];
         } catch (indexerError) {
           throw new Error('Transaction not found on blockchain');
         }
       }
       
-      if (!txInfo || !txInfo.note) {
+      if (!note) {
         throw new Error('Transaction found but contains no certification data');
       }
 
       // Decode note
-      const noteBuffer = Buffer.from(txInfo.note, 'base64');
+      const noteBuffer = Buffer.from(note, 'base64');
       const noteString = new TextDecoder().decode(noteBuffer);
       
       let data;
@@ -230,8 +241,8 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
         verified: true, 
         data: {
           ...data,
-          sender: txInfo.sender || txInfo['from'],
-          confirmedRound: txInfo.confirmedRound || txInfo['confirmed-round'],
+          sender,
+          confirmedRound,
           txId
         } 
       };
