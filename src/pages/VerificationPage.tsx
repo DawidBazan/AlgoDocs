@@ -193,7 +193,7 @@ const VerificationPage: React.FC = () => {
                       
                       <div className="pt-2 border-t border-gray-100">
                         <a 
-                          href={`https://testnet.algoexplorer.io/tx/${result.data.txId}`}
+                          href={`https://algoexplorer.io/tx/${result.data.txId}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sm text-teal-600 hover:text-teal-700 font-medium"
@@ -227,10 +227,10 @@ const VerificationPage: React.FC = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-          Document Verification
+          Check Document Status
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Verify the authenticity of a ChainStamp certified document.
+          Verify the authenticity of an AlgoDocs protected document.
         </p>
       </div>
 
@@ -256,8 +256,8 @@ const VerificationPage: React.FC = () => {
                 <div className="flex items-start">
                   <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5 mr-3 flex-shrink-0" />
                   <p className="text-blue-800 text-sm">
-                    Upload the document you want to verify. If it contains a ChainStamp QR code, we'll automatically extract the certification details. 
-                    Otherwise, you'll be prompted to enter the certification ID.
+                    Upload the document to verify its authenticity. If it contains an AlgoDocs QR code, we'll automatically validate it against the blockchain record.
+                    You can also enter the verification ID manually.
                   </p>
                 </div>
               </div>

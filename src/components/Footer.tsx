@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Twitter } from 'lucide-react';
+import { Github, Twitter, Stamp } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -11,35 +11,18 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-6 h-6 bg-navy-700 text-white flex items-center justify-center rounded">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-3 w-3"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10.172 13.828a4 4 0 015.656 0l4 4a4 4 0 01-5.656 5.656l-1.102-1.101"
-                  />
-                </svg>
-              </div>
+              <img
+                src="/algodocs-logo.png"
+                alt="AlgoDocs Logo"
+                className="w-6 h-6 object-contain"
+              />
               <span className="text-lg font-heading font-semibold text-navy-900">
-                ChainStamp
+                AlgoDocs
               </span>
             </div>
             <p className="text-gray-600 mb-4">
-              Blockchain-powered document authenticity service built on Algorand.
-              Secure, transparent, and tamper-proof certification for your important documents.
+              Advanced document verification powered by Algorand blockchain technology.
+              Create immutable proof of document authenticity with blockchain security.
             </p>
             <div className="flex space-x-4">
               <a
@@ -75,7 +58,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/certify" className="text-gray-600 hover:text-navy-700 transition-colors">
-                  Certify Document
+                  Stamp Document
                 </Link>
               </li>
               <li>
@@ -103,6 +86,11 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                  Security
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Algorand Blockchain
                 </a>
               </li>
@@ -112,14 +100,21 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {currentYear} ChainStamp. All rights reserved.
+            © {currentYear} AlgoDocs. All rights reserved.
           </p>
-          <div className="flex space-x-6">
+          <div className="flex items-center space-x-6">
             <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Privacy Policy
             </a>
             <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Terms of Service
+            </a>
+            <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
+              <img 
+                src="/black_circle_360x360.png" 
+                alt="Bolt" 
+                className="w-8 h-8 md:w-10 md:h-10 object-contain transition-transform hover:scale-110" 
+              />
             </a>
           </div>
         </div>

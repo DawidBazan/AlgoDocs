@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileCheck, Check, Download, ArrowRight } from 'lucide-react';
+import { FileCheck, Check, Download, ArrowRight, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DocumentDropzone from '../components/DocumentDropzone';
 import QRCode from 'qrcode.react';
+import TransactionModal from '../components/TransactionModal';
+import ConnectWalletButton from '../components/ConnectWalletButton';
 import { useAlgorand } from '../context/AlgorandContext';
 import { generateDocumentHash, addWatermark } from '../utils/documentUtils';
 
@@ -22,7 +24,11 @@ const CertificationPage: React.FC = () => {
   const [certificateId, setCertificateId] = useState<string>('');
   const [processing, setProcessing] = useState<boolean>(false);
   const [watermarkedFile, setWatermarkedFile] = useState<Blob | null>(null);
-  const { connected, certifyDocument } = useAlgorand();
+  const [error, setError] = useState<string | null>(null);
+  const [showTransactionModal, setShowTransactionModal] = useState(false);
+  const { connected, connect, certifyDocument, address, balance } = useAlgorand();
+
+  const TRANSACTION_FEE = 0.001; // Standard Algorand transaction fee
 
   const handleFileDrop = async (droppedFile: File) => {
     setFile(droppedFile);
@@ -42,8 +48,13 @@ const CertificationPage: React.FC = () => {
     }
   };
 
+  const handleTransactionConfirm = async () => {
+    setShowTransactionModal(false);
+    await handleCertify();
+  };
+
   const handleCertify = async () => {
-    if (!file || !documentHash || !connected) return;
+    if (!file || !documentHash || !connected || !address || !balance || balance < 0.001) return;
     
     try {
       setProcessing(true);
@@ -73,6 +84,7 @@ const CertificationPage: React.FC = () => {
       // Move to complete step
       setCurrentStep(CertificationStep.Complete);
     } catch (error) {
+      setError(error instanceof Error ? error.message : 'An error occurred while certifying the document');
       console.error('Error certifying document:', error);
     } finally {
       setProcessing(false);
@@ -106,12 +118,7 @@ const CertificationPage: React.FC = () => {
                 <p className="text-yellow-700 text-sm mb-4">
                   You need to connect your Algorand wallet to certify documents.
                 </p>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {}}
-                >
-                  Connect Wallet
-                </button>
+                <ConnectWalletButton fullWidth />
               </div>
             )}
           </div>
@@ -158,14 +165,53 @@ const CertificationPage: React.FC = () => {
                 By proceeding, this document will be certified on the Algorand blockchain with a permanent timestamp and unique identifier. This process cannot be reversed.
               </p>
               
-              <button
-                onClick={handleCertify}
-                disabled={processing || !connected}
-                className="btn btn-primary w-full"
-              >
-                {processing ? 'Processing...' : 'Certify Document'}
-              </button>
+              {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-start">
+                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
+                    <div>
+                      <p className="text-red-800 font-medium">Error</p>
+                      <p className="text-red-700 text-sm mt-1">{error}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {connected && address && balance !== null && balance < 0.001 && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-start">
+                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
+                    <div>
+                      <p className="text-red-800 font-medium">Insufficient Balance</p>
+                      <p className="text-red-700 text-sm mt-1">
+                        You need at least 0.001 ALGO to certify a document. Current balance: {balance.toFixed(6)} ALGO
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {connected && address ? (
+                <button
+                  onClick={() => setShowTransactionModal(true)}
+                  disabled={processing || !balance || balance < 0.001}
+                  className={`btn w-full ${
+                    !balance || balance < 0.001 ? 'bg-gray-400 cursor-not-allowed' : 'btn-primary'
+                  }`}
+                >
+                  {processing ? 'Processing...' : 'Stamp Document'}
+                </button>
+              ) : (
+                <ConnectWalletButton fullWidth />
+              )}
             </div>
+            
+            <TransactionModal
+              isOpen={showTransactionModal}
+              onClose={() => setShowTransactionModal(false)}
+              onConfirm={handleTransactionConfirm}
+              processing={processing}
+              transactionFee={TRANSACTION_FEE}
+            />
           </div>
         );
       
@@ -237,10 +283,10 @@ const CertificationPage: React.FC = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-          Document Certification
+          Document Stamping
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Secure your document on the Algorand blockchain with a tamper-proof certification.
+          Create an immutable blockchain record of your document's authenticity.
         </p>
       </div>
 
@@ -249,8 +295,8 @@ const CertificationPage: React.FC = () => {
         <div className="flex justify-between">
           {[
             { step: CertificationStep.Upload, label: 'Upload' },
-            { step: CertificationStep.Process, label: 'Process' },
-            { step: CertificationStep.Complete, label: 'Complete' },
+            { step: CertificationStep.Process, label: 'Stamp' },
+            { step: CertificationStep.Complete, label: 'Secure' },
           ].map((item, index) => (
             <div
               key={index}

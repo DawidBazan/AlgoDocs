@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Link as LinkIcon, Menu, X } from 'lucide-react';
+import { Menu, X, Stamp } from 'lucide-react';
 import { useAlgorand } from '../context/AlgorandContext';
 import ConnectWalletButton from './ConnectWalletButton';
 
@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Certify', path: '/certify' },
+    { name: 'Stamp', path: '/certify' },
     { name: 'Verify', path: '/verify' },
   ];
 
@@ -28,11 +28,13 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-navy-700 text-white flex items-center justify-center rounded">
-              <LinkIcon size={20} />
-            </div>
+            <img
+              src="/algodocs-logo.png"
+              alt="AlgoDocs Logo"
+              className="w-8 h-8 object-contain"
+            />
             <span className="text-xl font-heading font-semibold text-navy-900">
-              ChainStamp
+              AlgoDocs
             </span>
           </Link>
 
