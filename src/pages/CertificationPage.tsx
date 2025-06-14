@@ -76,7 +76,7 @@ const CertificationPage: React.FC = () => {
         const watermarkedPdf = await addWatermark(
           file,
           certId,
-          verificationUrl
+          txId
         );
         setWatermarkedFile(watermarkedPdf);
       }
@@ -237,7 +237,7 @@ const CertificationPage: React.FC = () => {
               
               <div className="mb-8 flex justify-center">
                 <div className="p-4 bg-white border border-gray-200 rounded-lg">
-                  <QRCode value={certificateUrl} size={180} />
+                  <QRCode value={transactionId} size={180} />
                 </div>
               </div>
               

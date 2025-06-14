@@ -21,7 +21,7 @@ export async function generateDocumentHash(file: File): Promise<string> {
 export async function addWatermark(
   file: File,
   certificateId: string,
-  verificationUrl: string
+  transactionId: string
 ): Promise<Blob> {
   const existingPdfBytes = await file.arrayBuffer();
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -29,7 +29,7 @@ export async function addWatermark(
   const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
   // Generate QR code
-  const qrCodeDataUrl = await QRCode.toDataURL(verificationUrl, {
+  const qrCodeDataUrl = await QRCode.toDataURL(transactionId, {
     width: 100,
     margin: 0,
   });
@@ -58,7 +58,7 @@ export async function addWatermark(
       color: rgb(0.5, 0.5, 0.5),
     });
     
-    page.drawText(`Verify at: ${verificationUrl}`, {
+    page.drawText(`Transaction ID: ${transactionId}`, {
       x: width - 300,
       y: height - 35,
       size: 8,
