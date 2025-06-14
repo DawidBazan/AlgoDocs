@@ -187,7 +187,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     try {
       // Get transaction information
-      const txInfo = await algodClient.transactionById(txId).do();
+      const txInfo = await algodClient.transactionInformation(txId).do();
       
       // Decode note
       const noteBuffer = Buffer.from(txInfo.note, 'base64');
