@@ -85,11 +85,11 @@ export async function extractTransactionId(file: File): Promise<string | null> {
     const page = await pdf.getPage(1);
     const textContent = await page.getTextContent();
     
-    // Look for transaction ID in text content
+    // Look for transaction ID in text content - updated regex to match the actual format
     const txIdMatch = textContent.items
       .map((item: any) => item.str)
       .join('')
-      .match(/Transaction:\s*([A-Za-z0-9]+)/);
+      .match(/Transaction ID:\s*([A-Za-z0-9]+)/);
     
     return txIdMatch ? txIdMatch[1] : null;
   } catch (error) {
