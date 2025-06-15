@@ -88,7 +88,7 @@ export async function extractTransactionId(file: File): Promise<string | null> {
     // Look for transaction ID in text content - updated regex to match the actual format
     const txIdMatch = textContent.items
       .map((item: any) => item.str)
-      .join('')
+      .join(' ')
       .match(/Transaction ID:\s*([A-Za-z0-9]+)/);
     
     return txIdMatch ? txIdMatch[1] : null;
