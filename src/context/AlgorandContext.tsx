@@ -187,10 +187,10 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     try {
       // Get transaction information
-      const txInfo = await algodClient.pendingTransactionInformation(txId).do();
+      const txInfo = await algodClient.transactionById(txId).do();
       
       // Decode note
-      const noteBuffer = Buffer.from(txInfo.note, 'base64');
+      const noteBuffer = Uint8Array.from(atob(txInfo.transaction.note), c => c.charCodeAt(0));
       const noteString = new TextDecoder().decode(noteBuffer);
       const data = JSON.parse(noteString);
       
@@ -203,7 +203,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
         verified: true, 
         data: {
           ...data,
-          sender: txInfo.sender,
+          sender: txInfo.transaction.sender,
           confirmedRound: txInfo.confirmedRound,
           txId
         } 
