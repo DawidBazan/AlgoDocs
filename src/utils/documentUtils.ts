@@ -30,38 +30,31 @@ export async function addWatermark(
 
   // Generate QR code
   const qrCodeDataUrl = await QRCode.toDataURL(transactionId, {
-    width: 100,
+    width: 80,
     margin: 0,
   });
   const qrCodeImage = await pdfDoc.embedPng(
     qrCodeDataUrl.replace('data:image/png;base64,', '')
   );
 
-  // Add watermark to each page
-  for (const page of pages) {
+  // Add watermark to first page only
+  if (pages.length > 0) {
+    const page = pages[0];
     const { width, height } = page.getSize();
     
-    // Add QR code
+    // Add QR code (smaller and positioned above certificate ID)
     page.drawImage(qrCodeImage, {
-      x: width - 120,
-      y: height - 120,
-      width: 100,
-      height: 100,
+      x: width - 100,
+      y: height - 100,
+      width: 80,
+      height: 80,
     });
     
-    // Add verification text
+    // Add certificate ID below QR code
     page.drawText(`Certificate ID: ${certificateId}`, {
-      x: width - 300,
-      y: height - 20,
+      x: width - 100,
+      y: height - 110,
       size: 10,
-      font: helveticaFont,
-      color: rgb(0.5, 0.5, 0.5),
-    });
-    
-    page.drawText(`Transaction ID: ${transactionId}`, {
-      x: width - 300,
-      y: height - 35,
-      size: 8,
       font: helveticaFont,
       color: rgb(0.5, 0.5, 0.5),
     });
