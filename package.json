@@ -4,12 +4,13 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@perawallet/connect": "^1.3.3",
+    "@perawallet/connect": "1.3.3",
     "algosdk": "^2.7.0",
     "framer-motion": "^10.16.16",
     "lucide-react": "^0.303.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^4.0.379",
+    "jsqr": "^1.4.0",
     "qrcode": "^1.5.3",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",

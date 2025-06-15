@@ -1,6 +1,7 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import * as QRCode from 'qrcode';
-import * as pdfjsLib from 'pdfjs-dist'
+import * as pdfjsLib from 'pdfjs-dist';
+import jsQR from 'jsqr';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).toString();
 
@@ -21,7 +22,7 @@ export async function generateDocumentHash(file: File): Promise<string> {
 export async function addWatermark(
   file: File,
   certificateId: string,
-  verificationUrl: string
+  transactionId: string
 ): Promise<Blob> {
   const existingPdfBytes = await file.arrayBuffer();
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
@@ -29,39 +30,32 @@ export async function addWatermark(
   const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
   // Generate QR code
-  const qrCodeDataUrl = await QRCode.toDataURL(verificationUrl, {
-    width: 100,
+  const qrCodeDataUrl = await QRCode.toDataURL(transactionId, {
+    width: 80,
     margin: 0,
   });
   const qrCodeImage = await pdfDoc.embedPng(
     qrCodeDataUrl.replace('data:image/png;base64,', '')
   );
 
-  // Add watermark to each page
-  for (const page of pages) {
+  // Add watermark to first page only
+  if (pages.length > 0) {
+    const page = pages[0];
     const { width, height } = page.getSize();
     
-    // Add QR code
+    // Add QR code (smaller and positioned above certificate ID)
     page.drawImage(qrCodeImage, {
-      x: width - 120,
-      y: height - 120,
-      width: 100,
-      height: 100,
+      x: width - 100,
+      y: height - 100,
+      width: 80,
+      height: 80,
     });
     
-    // Add verification text
+    // Add certificate ID below QR code
     page.drawText(`Certificate ID: ${certificateId}`, {
-      x: width - 300,
-      y: height - 20,
+      x: width - 100,
+      y: height - 110,
       size: 10,
-      font: helveticaFont,
-      color: rgb(0.5, 0.5, 0.5),
-    });
-    
-    page.drawText(`Verify at: ${verificationUrl}`, {
-      x: width - 300,
-      y: height - 35,
-      size: 8,
       font: helveticaFont,
       color: rgb(0.5, 0.5, 0.5),
     });
@@ -83,15 +77,31 @@ export async function extractTransactionId(file: File): Promise<string | null> {
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     const page = await pdf.getPage(1);
-    const textContent = await page.getTextContent();
     
-    // Look for transaction ID in text content
-    const txIdMatch = textContent.items
-      .map((item: any) => item.str)
-      .join('')
-      .match(/Transaction:\s*([A-Za-z0-9]+)/);
+    // Render page to canvas to extract QR code
+    const viewport = page.getViewport({ scale: 2.0 });
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d')!;
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
     
-    return txIdMatch ? txIdMatch[1] : null;
+    await page.render({
+      canvasContext: context,
+      viewport: viewport
+    }).promise;
+    
+    // Get image data from canvas
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    
+    // Try to decode QR code from the image
+    const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
+    
+    if (qrCode && qrCode.data) {
+      // The QR code should contain the transaction ID directly
+      return qrCode.data;
+    }
+    
+    return null;
   } catch (error) {
     console.error('Error extracting transaction ID:', error);
     return null;
