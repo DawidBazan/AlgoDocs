@@ -58,15 +58,6 @@ export async function addWatermark(
       font: helveticaFont,
       color: rgb(0.5, 0.5, 0.5),
     });
-    
-    // Add transaction ID below certificate ID
-    page.drawText(`Transaction ID: ${transactionId}`, {
-      x: width - 100,
-      y: height - 125,
-      size: 10,
-      font: helveticaFont,
-      color: rgb(0.5, 0.5, 0.5),
-    });
   }
 
   const pdfBytes = await pdfDoc.save();
