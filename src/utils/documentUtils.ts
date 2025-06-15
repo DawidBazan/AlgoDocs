@@ -1,6 +1,7 @@
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import * as QRCode from 'qrcode';
-import * as pdfjsLib from 'pdfjs-dist'
+import * as pdfjsLib from 'pdfjs-dist';
+import jsQR from 'jsqr';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.mjs', import.meta.url).toString();
 
@@ -76,15 +77,31 @@ export async function extractTransactionId(file: File): Promise<string | null> {
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     const page = await pdf.getPage(1);
-    const textContent = await page.getTextContent();
     
-    // Look for transaction ID in text content - updated regex to match the actual format
-    const txIdMatch = textContent.items
-      .map((item: any) => item.str)
-      .join(' ')
-      .match(/Transaction ID:\s*([A-Za-z0-9]+)/);
+    // Render page to canvas to extract QR code
+    const viewport = page.getViewport({ scale: 2.0 });
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d')!;
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
     
-    return txIdMatch ? txIdMatch[1] : null;
+    await page.render({
+      canvasContext: context,
+      viewport: viewport
+    }).promise;
+    
+    // Get image data from canvas
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    
+    // Try to decode QR code from the image
+    const qrCode = jsQR(imageData.data, imageData.width, imageData.height);
+    
+    if (qrCode && qrCode.data) {
+      // The QR code should contain the transaction ID directly
+      return qrCode.data;
+    }
+    
+    return null;
   } catch (error) {
     console.error('Error extracting transaction ID:', error);
     return null;
