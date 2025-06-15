@@ -13,6 +13,11 @@ const algodServer = 'https://mainnet-api.algonode.cloud';
 const algodPort = '';
 const algodToken = '';
 
+// Algorand Indexer for transaction lookups
+const indexerServer = 'https://mainnet-idx.algonode.cloud';
+const indexerPort = '';
+const indexerToken = '';
+
 interface AlgorandContextType {
   connect: (type: 'pera' | 'walletconnect') => Promise<void>;
   disconnect: () => void;
@@ -32,6 +37,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [address, setAddress] = useState<string | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
   const [algodClient, setAlgodClient] = useState<algosdk.Algodv2 | null>(null);
+  const [indexerClient, setIndexerClient] = useState<algosdk.Indexer | null>(null);
   const [wallet] = useState<PeraWalletConnect>(() => peraWallet);
 
   const fetchBalance = async (addr: string) => {
@@ -63,6 +69,10 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
     // Initialize Algorand client
     const client = new algosdk.Algodv2(algodToken, algodServer, algodPort);
     setAlgodClient(client);
+
+    // Initialize Indexer client
+    const indexer = new algosdk.Indexer(indexerToken, indexerServer, indexerPort);
+    setIndexerClient(indexer);
 
     // Reconnect session
     wallet
@@ -181,13 +191,13 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
   };
 
   const verifyDocument = async (txId: string): Promise<{ verified: boolean; data: any }> => {
-    if (!algodClient) {
-      throw new Error('Algorand client not initialized');
+    if (!indexerClient) {
+      throw new Error('Indexer client not initialized');
     }
 
     try {
-      // Get transaction information
-      const txInfo = await algodClient.transactionById(txId).do();
+      // Get transaction information using Indexer
+      const txInfo = await indexerClient.lookupTransactionByID(txId).do();
       
       // Decode note
       const noteBuffer = Uint8Array.from(atob(txInfo.transaction.note), c => c.charCodeAt(0));
@@ -204,7 +214,7 @@ export const AlgorandProvider: React.FC<{ children: ReactNode }> = ({ children }
         data: {
           ...data,
           sender: txInfo.transaction.sender,
-          confirmedRound: txInfo.confirmedRound,
+          confirmedRound: txInfo.transaction['confirmed-round'],
           txId
         } 
       };
