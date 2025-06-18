@@ -76,21 +76,22 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="/#how-it-works" className="text-gray-600 hover:text-navy-700 transition-colors">
                   How It Works
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="https://github.com/algorand/docs" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Documentation
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="https://www.algorand.com/technology/security" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Security
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="https://www.algorand.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Algorand Blockchain
                 </a>
               </li>
