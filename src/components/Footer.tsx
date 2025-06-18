@@ -75,7 +75,6 @@ const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
                 <a href="/#how-it-works" className="text-gray-600 hover:text-navy-700 transition-colors">
                   How It Works
                 </a>
