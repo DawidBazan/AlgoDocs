@@ -103,12 +103,12 @@ const Footer: React.FC = () => {
             © {currentYear} AlgoDocs. All rights reserved.
           </p>
           <div className="flex items-center space-x-6">
-            <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
+            <Link to="/privacy-policy" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
+            </Link>
+            <Link to="/terms-of-service" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Terms of Service
-            </a>
+            </Link>
             <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               <img 
                 src="/black_circle_360x360.png" 
