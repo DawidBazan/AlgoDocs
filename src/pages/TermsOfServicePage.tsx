@@ -88,7 +88,6 @@ const TermsOfServicePage: React.FC = () => {
             
             <h3 className="text-xl font-semibold text-navy-800 mb-3">Service Requirements</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li>You must be at least 18 years old to use this Service</li>
               <li>You must have a compatible Algorand wallet (e.g., Pera Wallet)</li>
               <li>You must have sufficient ALGO for blockchain transaction fees</li>
               <li>You are responsible for maintaining the security of your wallet</li>
