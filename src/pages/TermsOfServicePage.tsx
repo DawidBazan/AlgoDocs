@@ -65,7 +65,7 @@ const TermsOfServicePage: React.FC = () => {
             
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Create cryptographic proofs of document authenticity</li>
-              <li>Store immutable records on the Algorand blockchain</li>
+              <li>Record immutable certification data on the Algorand blockchain</li>
               <li>Verify the authenticity of previously certified documents</li>
               <li>Generate tamper-evident certificates with QR codes</li>
               <li>Access blockchain transaction records for verification</li>
@@ -73,8 +73,9 @@ const TermsOfServicePage: React.FC = () => {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
               <p className="text-blue-800">
-                <strong>Blockchain Notice:</strong> All certification records are permanently stored on the 
-                Algorand blockchain and cannot be modified or deleted once confirmed.
+                <strong>No Data Storage:</strong> AlgoDocs processes documents temporarily to create blockchain 
+                certifications. We do not store any user data, document content, or personal information. 
+                Only certification records are permanently stored on the Algorand blockchain.
               </p>
             </div>
           </section>
@@ -82,14 +83,14 @@ const TermsOfServicePage: React.FC = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-heading font-semibold text-navy-900 mb-4 flex items-center">
               <Users className="w-6 h-6 mr-2" />
-              User Accounts and Responsibilities
+              User Requirements and Responsibilities
             </h2>
             
-            <h3 className="text-xl font-semibold text-navy-800 mb-3">Account Requirements</h3>
+            <h3 className="text-xl font-semibold text-navy-800 mb-3">Service Requirements</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>You must be at least 18 years old to use this Service</li>
               <li>You must have a compatible Algorand wallet (e.g., Pera Wallet)</li>
-              <li>You must provide accurate and complete information</li>
+              <li>You must have sufficient ALGO for blockchain transaction fees</li>
               <li>You are responsible for maintaining the security of your wallet</li>
             </ul>
 
@@ -101,6 +102,13 @@ const TermsOfServicePage: React.FC = () => {
               <li>Comply with all applicable laws and regulations</li>
               <li>Pay all applicable fees and transaction costs</li>
             </ul>
+            
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+              <p className="text-green-800">
+                <strong>No Account Required:</strong> AlgoDocs does not require user accounts or registration. 
+                You interact directly with the service using your Algorand wallet.
+              </p>
+            </div>
           </section>
 
           <section className="mb-8">
@@ -153,7 +161,7 @@ const TermsOfServicePage: React.FC = () => {
             <h3 className="text-xl font-semibold text-navy-800 mb-3">Your Content</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>You retain all rights to documents you upload and certify</li>
-              <li>You grant us limited rights to process and hash your documents</li>
+              <li>You grant us limited rights to temporarily process and hash your documents</li>
               <li>You represent that you own or have permission to certify uploaded content</li>
               <li>You are responsible for any intellectual property violations</li>
             </ul>
@@ -163,7 +171,14 @@ const TermsOfServicePage: React.FC = () => {
               <li>AlgoDocs and related trademarks are our property</li>
               <li>Our software, algorithms, and processes are protected by intellectual property laws</li>
               <li>You may not copy, modify, or reverse engineer our Service</li>
-              <li>Any feedback you provide may be used to improve our Service</li>
+            </ul>
+            
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <p className="text-blue-800">
+                <strong>Document Processing:</strong> We only process your documents temporarily to generate 
+                cryptographic hashes. Documents are never stored, copied, or retained after processing.
+              </p>
+            </div>
             </ul>
           </section>
 
@@ -204,7 +219,7 @@ const TermsOfServicePage: React.FC = () => {
             <h2 className="text-2xl font-heading font-semibold text-navy-900 mb-4">Privacy and Data Protection</h2>
             
             <p className="mb-4">
-              Your privacy is important to us. Our collection and use of personal information is governed by our 
+              Your privacy is important to us. Our document processing practices are governed by our 
               <Link to="/privacy-policy" className="text-navy-700 hover:text-navy-800 underline">Privacy Policy</Link>, 
               which is incorporated into these Terms by reference.
             </p>
@@ -213,9 +228,10 @@ const TermsOfServicePage: React.FC = () => {
             
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>We do not store the actual content of your documents</li>
-              <li>Only cryptographic hashes and metadata are processed</li>
+              <li>We do not store any user data or personal information</li>
+              <li>Only cryptographic hashes are generated and sent to the blockchain</li>
               <li>Blockchain records are public and immutable</li>
-              <li>We implement industry-standard security measures</li>
+              <li>All document processing is temporary and secure</li>
             </ul>
           </section>
 
@@ -227,14 +243,14 @@ const TermsOfServicePage: React.FC = () => {
               <li>You may stop using the Service at any time</li>
               <li>Disconnect your wallet to terminate access</li>
               <li>Previously certified documents remain on the blockchain</li>
-              <li>No refunds for completed transactions</li>
+              <li>No data cleanup required since no data is stored</li>
             </ul>
 
             <h3 className="text-xl font-semibold text-navy-800 mb-3">Termination by Us</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>We may terminate access for Terms violations</li>
               <li>We may suspend service for maintenance or security reasons</li>
-              <li>30 days notice will be provided for non-violation terminations</li>
+              <li>Notice will be provided for planned service interruptions</li>
               <li>Blockchain records remain accessible regardless of termination</li>
             </ul>
           </section>

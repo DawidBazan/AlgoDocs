@@ -44,25 +44,23 @@ const PrivacyPolicyPage: React.FC = () => {
               Information We Collect
             </h2>
             
-            <h3 className="text-xl font-semibold text-navy-800 mb-3">Personal Information</h3>
+            <h3 className="text-xl font-semibold text-navy-800 mb-3">Wallet Information</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Wallet addresses when you connect your Algorand wallet</li>
               <li>Transaction data related to document certifications</li>
-              <li>IP addresses and browser information for security purposes</li>
-              <li>Usage analytics to improve our service</li>
             </ul>
 
             <h3 className="text-xl font-semibold text-navy-800 mb-3">Document Information</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>Document hashes (cryptographic fingerprints) for verification</li>
               <li>Document metadata (file names, sizes, types)</li>
-              <li>Certification timestamps and blockchain transaction IDs</li>
             </ul>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
               <p className="text-blue-800">
-                <strong>Important:</strong> We never store the actual content of your documents. Only cryptographic hashes 
-                and metadata are processed and stored for verification purposes.
+                <strong>Important:</strong> We never store the actual content of your documents or any personal data. 
+                Document hashes and metadata are only processed temporarily for verification and are not stored on our servers.
+                All certification data is stored permanently on the Algorand blockchain, not on our systems.
               </p>
             </div>
           </section>
@@ -76,11 +74,15 @@ const PrivacyPolicyPage: React.FC = () => {
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>To provide document certification and verification services</li>
               <li>To process blockchain transactions on your behalf</li>
-              <li>To maintain service security and prevent fraud</li>
-              <li>To improve our platform and user experience</li>
-              <li>To comply with legal obligations and regulatory requirements</li>
-              <li>To communicate important service updates and security notices</li>
+              <li>To generate cryptographic hashes for blockchain certification</li>
             </ul>
+            
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+              <p className="text-green-800">
+                <strong>No Data Storage:</strong> AlgoDocs operates as a processing service only. We do not store, 
+                retain, or maintain any user data, document content, or personal information on our servers.
+              </p>
+            </div>
           </section>
 
           <section className="mb-8">
@@ -92,18 +94,17 @@ const PrivacyPolicyPage: React.FC = () => {
             <h3 className="text-xl font-semibold text-navy-800 mb-3">Security Measures</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li>End-to-end encryption for all data transmission</li>
-              <li>Secure cloud infrastructure with industry-standard protections</li>
-              <li>Regular security audits and vulnerability assessments</li>
-              <li>Access controls and authentication mechanisms</li>
+              <li>Temporary processing in secure, isolated environments</li>
               <li>Blockchain immutability for certified document records</li>
+              <li>No persistent data storage on our servers</li>
             </ul>
 
             <h3 className="text-xl font-semibold text-navy-800 mb-3">Data Retention</h3>
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li>Document hashes and certification data are stored permanently on the Algorand blockchain</li>
-              <li>Personal information is retained only as long as necessary for service provision</li>
-              <li>You may request deletion of personal data not required for blockchain operations</li>
+              <li>No data is retained on our servers - all processing is temporary</li>
+              <li>Document hashes and certification data are stored permanently on the Algorand blockchain only</li>
               <li>Blockchain records cannot be deleted due to the immutable nature of distributed ledgers</li>
+              <li>We do not maintain logs, backups, or copies of any processed information</li>
             </ul>
           </section>
 
@@ -114,11 +115,15 @@ const PrivacyPolicyPage: React.FC = () => {
             
             <ul className="list-disc pl-6 mb-4 space-y-2">
               <li><strong>Blockchain Networks:</strong> Transaction data is publicly recorded on the Algorand blockchain</li>
-              <li><strong>Service Providers:</strong> Trusted partners who assist in operating our platform</li>
-              <li><strong>Legal Requirements:</strong> When required by law, regulation, or legal process</li>
-              <li><strong>Business Transfers:</strong> In connection with mergers, acquisitions, or asset sales</li>
-              <li><strong>Consent:</strong> When you explicitly authorize information sharing</li>
+              <li><strong>Legal Requirements:</strong> When required by law, regulation, or legal process (though we have no data to share)</li>
             </ul>
+            
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <p className="text-blue-800">
+                <strong>Note:</strong> Since we don't store any personal information, there is effectively nothing 
+                to share with third parties beyond what is already publicly available on the blockchain.
+              </p>
+            </div>
           </section>
 
           <section className="mb-8">
@@ -127,17 +132,14 @@ const PrivacyPolicyPage: React.FC = () => {
             <p className="mb-4">Depending on your jurisdiction, you may have the following rights:</p>
             
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li><strong>Access:</strong> Request information about data we hold about you</li>
-              <li><strong>Correction:</strong> Request correction of inaccurate personal information</li>
-              <li><strong>Deletion:</strong> Request deletion of personal data (subject to blockchain limitations)</li>
-              <li><strong>Portability:</strong> Request transfer of your data to another service</li>
-              <li><strong>Objection:</strong> Object to certain types of data processing</li>
-              <li><strong>Withdrawal:</strong> Withdraw consent for data processing where applicable</li>
+              <li><strong>Access:</strong> Request information about data processing (we can confirm no data is stored)</li>
+              <li><strong>Transparency:</strong> Understand how your documents are processed</li>
+              <li><strong>Blockchain Rights:</strong> Access your certification records on the public Algorand blockchain</li>
             </ul>
 
             <p className="mb-4">
-              To exercise these rights, please contact us at privacy@algodocs.com. We will respond to your request 
-              within 30 days and may require identity verification.
+              Since we don't store any personal data, most traditional data rights don't apply. However, you can 
+              contact us at privacy@algodocs.com for any questions about our processing methods.
             </p>
           </section>
 
@@ -147,15 +149,12 @@ const PrivacyPolicyPage: React.FC = () => {
             <p className="mb-4">We use cookies and similar technologies to:</p>
             
             <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li>Maintain your session and preferences</li>
-              <li>Analyze website usage and performance</li>
-              <li>Provide personalized experiences</li>
               <li>Ensure security and prevent fraud</li>
+              <li>Maintain basic website functionality</li>
             </ul>
 
             <p className="mb-4">
-              You can control cookie settings through your browser preferences. However, disabling certain cookies 
-              may affect the functionality of our service.
+              We use minimal cookies necessary for basic website operation. No tracking or analytics cookies are used.
             </p>
           </section>
 
@@ -163,25 +162,17 @@ const PrivacyPolicyPage: React.FC = () => {
             <h2 className="text-2xl font-heading font-semibold text-navy-900 mb-4">International Data Transfers</h2>
             
             <p className="mb-4">
-              Your information may be transferred to and processed in countries other than your own. We ensure 
-              appropriate safeguards are in place to protect your data during international transfers, including:
+              Since we don't store any personal data, international data transfer regulations don't apply to our service. 
+              Document processing happens temporarily and locally within our secure infrastructure.
             </p>
-            
-            <ul className="list-disc pl-6 mb-4 space-y-2">
-              <li>Adequacy decisions by relevant data protection authorities</li>
-              <li>Standard contractual clauses approved by regulatory bodies</li>
-              <li>Certification schemes and codes of conduct</li>
-              <li>Binding corporate rules for intra-group transfers</li>
-            </ul>
           </section>
 
           <section className="mb-8">
             <h2 className="text-2xl font-heading font-semibold text-navy-900 mb-4">Children's Privacy</h2>
             
             <p className="mb-4">
-              Our service is not intended for children under 13 years of age. We do not knowingly collect personal 
-              information from children under 13. If you believe we have collected information from a child under 13, 
-              please contact us immediately so we can delete such information.
+              Our service is not intended for children under 13 years of age. Since we don't collect or store any 
+              personal information, this policy applies to all users regardless of age.
             </p>
           </section>
 
