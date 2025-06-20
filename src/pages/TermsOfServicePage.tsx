@@ -179,7 +179,6 @@ const TermsOfServicePage: React.FC = () => {
                 cryptographic hashes. Documents are never stored, copied, or retained after processing.
               </p>
             </div>
-            </ul>
           </section>
 
           <section className="mb-8">
