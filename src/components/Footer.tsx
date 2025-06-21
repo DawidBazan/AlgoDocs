@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/certify" className="text-gray-600 hover:text-navy-700 transition-colors">
-                  Stamp Document
+                  Authenticate Document
                 </Link>
               </li>
               <li>
