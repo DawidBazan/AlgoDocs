@@ -29,7 +29,7 @@ const LandingPage: React.FC = () => {
                   className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
                 >
                   <PenSquare size={20} />
-                  Authenticate Document
+                  Authenticate
                 </Link>
                 <Link
                   to="/verify"
@@ -186,7 +186,7 @@ const LandingPage: React.FC = () => {
               className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
             >
               <PenSquare size={20} />
-              Authenticate Your Document
+              Authenticate
             </Link>
             <Link
               to="/verify"

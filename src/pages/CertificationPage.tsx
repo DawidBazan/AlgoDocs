@@ -198,7 +198,7 @@ const CertificationPage: React.FC = () => {
                     !balance || balance < 0.001 ? 'bg-gray-400 cursor-not-allowed' : 'btn-primary'
                   }`}
                 >
-                  {processing ? 'Processing...' : 'Authenticate Document'}
+                  {processing ? 'Processing...' : 'Authenticate'}
                 </button>
               ) : (
                 <ConnectWalletButton fullWidth />
@@ -266,7 +266,7 @@ const CertificationPage: React.FC = () => {
                   className="btn btn-primary"
                 >
                   <Download size={20} />
-                  Download Certified Document
+                  Download Certified
                 </button>
                 <Link to="/verify" className="btn btn-outline">
                   <ArrowRight size={20} />
