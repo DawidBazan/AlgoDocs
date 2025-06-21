@@ -58,7 +58,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link to="/certify" className="text-gray-600 hover:text-navy-700 transition-colors">
-                  Stamp Document
+                  Certify
                 </Link>
               </li>
               <li>
@@ -75,22 +75,22 @@ const Footer: React.FC = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="/#how-it-works" className="text-gray-600 hover:text-navy-700 transition-colors">
                   How It Works
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="https://github.com/algorand/docs" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Documentation
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="https://www.algorand.com/technology/security" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Security
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-navy-700 transition-colors">
+                <a href="https://www.algorand.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-navy-700 transition-colors">
                   Algorand Blockchain
                 </a>
               </li>
@@ -103,12 +103,12 @@ const Footer: React.FC = () => {
             © {currentYear} AlgoDocs. All rights reserved.
           </p>
           <div className="flex items-center space-x-6">
-            <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
+            <Link to="/privacy-policy" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
+            </Link>
+            <Link to="/terms-of-service" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               Terms of Service
-            </a>
+            </Link>
             <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-navy-700 text-sm transition-colors">
               <img 
                 src="/black_circle_360x360.png" 

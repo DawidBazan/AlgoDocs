@@ -198,7 +198,7 @@ const CertificationPage: React.FC = () => {
                     !balance || balance < 0.001 ? 'bg-gray-400 cursor-not-allowed' : 'btn-primary'
                   }`}
                 >
-                  {processing ? 'Processing...' : 'Stamp Document'}
+                  {processing ? 'Processing...' : 'Certify'}
                 </button>
               ) : (
                 <ConnectWalletButton fullWidth />
@@ -266,7 +266,7 @@ const CertificationPage: React.FC = () => {
                   className="btn btn-primary"
                 >
                   <Download size={20} />
-                  Download Certified Document
+                  Download Certified
                 </button>
                 <Link to="/verify" className="btn btn-outline">
                   <ArrowRight size={20} />
@@ -283,7 +283,7 @@ const CertificationPage: React.FC = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-12 text-center">
         <h1 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-          Document Stamping
+          Document Certification
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Create an immutable blockchain record of your document's authenticity.
@@ -295,7 +295,7 @@ const CertificationPage: React.FC = () => {
         <div className="flex justify-between">
           {[
             { step: CertificationStep.Upload, label: 'Upload' },
-            { step: CertificationStep.Process, label: 'Stamp' },
+            { step: CertificationStep.Process, label: 'Certify' },
             { step: CertificationStep.Complete, label: 'Secure' },
           ].map((item, index) => (
             <div

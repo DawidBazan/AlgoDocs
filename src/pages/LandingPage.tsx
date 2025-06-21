@@ -29,7 +29,7 @@ const LandingPage: React.FC = () => {
                   className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
                 >
                   <PenSquare size={20} />
-                  Stamp Document
+                  Certify
                 </Link>
                 <Link
                   to="/verify"
@@ -62,11 +62,11 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20">
+      <section id="how-it-works" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              How AuthStamp Works
+              How AlgoDocs Works
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Protect your documents with blockchain-powered verification in three simple steps.
@@ -118,7 +118,7 @@ const LandingPage: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Why Choose AuthStamp
+              Why Choose AlgoDocs
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Enterprise-grade document security powered by blockchain technology.
@@ -178,7 +178,7 @@ const LandingPage: React.FC = () => {
             Ready to protect your documents?
           </h2>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto mb-8">
-            Join leading organizations who trust AuthStamp for tamper-proof document verification.
+            Join leading organizations who trust AlgoDocs for tamper-proof document verification.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
@@ -186,7 +186,7 @@ const LandingPage: React.FC = () => {
               className="btn bg-teal-500 hover:bg-teal-600 text-white font-medium"
             >
               <PenSquare size={20} />
-              Stamp Your Document
+              Certify
             </Link>
             <Link
               to="/verify"
